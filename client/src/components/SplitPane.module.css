@@ -1,0 +1,7 @@
+.splitPane {
+    grid-area: main;
+    height: calc(100dvh - var(40px)) !important;
+    position: unset !important;
+    border-radius: var(--border-radius);
+    background-color: var(--color-primary);
+}

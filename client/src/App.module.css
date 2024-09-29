@@ -1,0 +1,29 @@
+.app {
+    display: grid;
+    gap: var(--gap);
+    padding: var(--gap);
+    grid-template-areas:
+        "aside nav nav"
+        "aside main main"
+        "aside main main";
+    grid-template-columns: var(--aside-width) 1fr;
+    grid-template-rows: calc(var(--aside-height) - var(--gap)) 1fr 1fr;
+}
+
+.app.menuOpen {
+    grid-template-areas:
+        "nav nav"
+        "main main"
+        "main main";
+}
+
+.app > * {
+    padding: var(--padding);
+}
+
+.app .splitPane {
+    grid-area: main;
+    position: unset !important;
+    border-radius: var(--border-radius);
+    background-color: var(--color-primary);
+}

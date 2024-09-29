@@ -1,0 +1,9 @@
+.editor {
+    width: 100%;
+    height: 100%;
+}
+
+.editor textarea {
+    outline: none;
+    border-radius: calc(var(--padding) - var(--border-radius));
+}

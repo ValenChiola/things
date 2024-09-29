@@ -1,0 +1,24 @@
+.toolBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-area: nav;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+}
+
+.toolBar .title {
+    font-size: 35px;
+}
+
+.toolBar .left {
+    display: flex;
+    gap: var(--gap);
+}
+
+.toolBar .right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: calc(2 * var(--gap));
+}

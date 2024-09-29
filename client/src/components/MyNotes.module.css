@@ -1,0 +1,79 @@
+.myNotes {
+    grid-area: aside;
+    background-color: var(--color-primary);
+    height: 100dvh;
+    padding: var(--padding);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    color: white;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-secondary) var(--color-primary);
+}
+
+.myNotes::-webkit-scrollbar {
+    width: 8px;
+}
+
+.myNotes::-webkit-scrollbar-thumb {
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius);
+}
+
+.myNotes .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.myNotes .header .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.myNotes h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.myNotes .items {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+.myNotes .items a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    padding: 12px var(--padding);
+    font-size: 16px;
+    color: white;
+    transition: background-color 0.3s ease;
+    border-radius: var(--border-radius);
+}
+
+.myNotes .items a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+
+.myNotes .items a.active {
+    background-color: rgba(124, 123, 123, 0.2);
+}
+
+.myNotes .items a.disabled {
+    color: #6c757d; /* Color gris para indicar que está deshabilitado */
+    pointer-events: none; /* Evita los clics */
+    opacity: 0.6; /* Reduce la opacidad para dar la apariencia de deshabilitado */
+    cursor: not-allowed;
+}

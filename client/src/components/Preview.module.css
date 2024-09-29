@@ -1,0 +1,13 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-preview);
+    color: black;
+    padding: var(--padding);
+    overflow-y: auto;
+    border-radius: calc(var(--padding) - var(--border-radius));
+}
+
+.preview {
+    padding: 0 var(--padding);
+}
