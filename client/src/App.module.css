@@ -17,6 +17,10 @@
         "main main";
 }
 
+.app.menuOpen aside {
+    display: none;
+}
+
 .app > * {
     padding: var(--padding);
 }

@@ -2,7 +2,7 @@ import { PropsWithChildren, createContext, useContext } from "react"
 import { ToastOptions, Toaster, toast } from "react-hot-toast"
 
 const UIContext = createContext({} as UIContextValues)
-UIContext.displayName = "AppContext"
+UIContext.displayName = "UIContext"
 
 export const UIProvider = ({ children }: PropsWithChildren) => {
     const showToast = toast

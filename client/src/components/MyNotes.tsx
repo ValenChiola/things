@@ -4,12 +4,10 @@ import { Minus } from "./icons/Minus"
 import { NoteDTO } from "../api/notes"
 import { Plus } from "./icons/Plus"
 import Styles from "./MyNotes.module.css"
-import { useApp } from "../contexts/AppContext"
 import { useNotes } from "../hooks/useNotes"
 import { useState } from "react"
 
 export const MyNotes = () => {
-    const { isMenuOpen } = useApp()
     const { notes, status, startNote } = useNotes()
 
     if (status === "pending")
@@ -25,8 +23,6 @@ export const MyNotes = () => {
                 <p>Error :/</p>
             </aside>
         )
-
-    if (isMenuOpen) return null
 
     return (
         <aside className={Styles.myNotes}>
