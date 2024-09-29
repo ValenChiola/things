@@ -1,10 +1,11 @@
 import Axios from "axios"
 
+const { VITE_API_URL, VITE_MOCKED_AUTHORIZATION } = import.meta.env
+
 const ApiNotes = Axios.create({
-    baseURL: "http://localhost:8000/api",
+    baseURL: VITE_API_URL,
     headers: {
-        Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4OTEyNjRmNC0xNzBmLTQ4ZWMtYTNmZi0yYTFlODc2YTZiNmUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNjYzOTAyMiwiZXhwIjoxNzkzOTAyMjIyfQ.cBlj9s69C41t4aKHGdzOBv2tRPcJv4-tL0wJRDr1Azo",
+        Authorization: VITE_MOCKED_AUTHORIZATION,
     },
 })
 
