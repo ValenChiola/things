@@ -13,12 +13,12 @@ export const {
 log.info(`✔ Initializing: Server App - [${NODE_ENV}]`)
 
 class Server {
-    private server: FastifyInstance
+    public instance: FastifyInstance
     private host = APP_HOST
     private port = +APP_PORT
 
     constructor({ plugins, routes }: { plugins: Plugin[]; routes: Route[] }) {
-        this.server = fastify({
+        this.instance = fastify({
             logger: loggerOptions ?? true,
         })
         this.register(plugins)
@@ -27,22 +27,22 @@ class Server {
     }
 
     private register(plugins: Plugin[]) {
-        this.server.log.info(`✔ Initializing: Plugins (${plugins.length})`)
-        plugins.forEach(this.server.register)
+        this.instance.log.info(`✔ Initializing: Plugins (${plugins.length})`)
+        plugins.forEach(this.instance.register)
     }
 
     private routes(routes: Route[]) {
-        this.server.log.info(`✔ Initializing: Routes (${routes.length + 2})`)
+        this.instance.log.info(`✔ Initializing: Routes (${routes.length + 2})`)
 
         routes.forEach(({ routes, prefix }) =>
-            this.server.register(routes, { prefix: `/api/${prefix}` })
+            this.instance.register(routes, { prefix: `/api/${prefix}` })
         )
 
-        this.server.get("/health-check", (_, reply) =>
+        this.instance.get("/health-check", (_, reply) =>
             reply.send({ "Is server alive?": true })
         )
 
-        this.server.get("/", (_, reply) => reply.send("Hello there!"))
+        this.instance.get("/", (_, reply) => reply.send("Hello there!"))
     }
 
     private connectToDb() {
@@ -55,15 +55,17 @@ class Server {
         try {
             if (NODE_ENV == "test") return
 
-            this.server.log.info(`✔ Initializing: Server on port ${this.port}`)
-            this.server.listen(
+            this.instance.log.info(
+                `✔ Initializing: Server on port ${this.port}`
+            )
+            this.instance.listen(
                 { port: this.port, host: this.host },
                 (error) => {
                     if (error) throw error
                 }
             )
         } catch (error) {
-            this.server.log.error(error)
+            this.instance.log.error(error)
             process.exit(1)
         }
     }

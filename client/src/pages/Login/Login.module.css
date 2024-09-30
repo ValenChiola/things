@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    place-items: center;
+    height: 100dvh;
+}
+
+.container h1 {
+    font-size: 5rem;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: calc(2 * var(--gap));
+    width: 500px;
+    height: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.container form button {
+    margin-top: 1rem;
+}

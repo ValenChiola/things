@@ -1,13 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
-import { App } from "../App"
+import { Login } from "../pages/Login/Login"
+import { Things } from "../pages/Things"
 
 export const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/:id" element={<App />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Things />} />
+                <Route path="/:id" element={<Things />} />
             </Routes>
         </BrowserRouter>
     )

@@ -6,7 +6,7 @@ import { authorize } from "../../../infrastructure/authorize"
 export const UserRoutes: Route = {
     prefix: "users",
 
-    routes(server, _options, done) {
+    routes(server, _, done) {
         // GET
         server.get(
             "/notes",

@@ -7,7 +7,7 @@ import { authorize } from "../../../infrastructure/authorize"
 export const NoteRoutes: Route = {
     prefix: "notes",
 
-    routes(server, _options, done) {
+    routes(server, _, done) {
         // POST
         server.post("/", authorize({ minRole: "user" }), NotesPost)
 
