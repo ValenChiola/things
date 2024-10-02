@@ -10,17 +10,17 @@ export const userLogin = async ({
     email: string
     password: string
 }) => {
-    const user = await findOneUser({ where: { email } })
+    const me = await findOneUser({ where: { email } })
 
-    if (!user) return sendError("Invalid credentials", 401)
+    if (!me) return sendError("Invalid credentials", 401)
 
-    const isValidPassword = await compare(password, user.password)
+    const isValidPassword = await compare(password, me.password)
     if (!isValidPassword) return sendError("Invalid credentials", 401)
 
-    const { id: sub, role } = user
+    const { id: sub, role } = me
     const token = signPayload({ sub, role })
     return {
         token,
-        sub,
+        me,
     }
 }

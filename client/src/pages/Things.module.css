@@ -3,22 +3,28 @@
     gap: var(--gap);
     padding: var(--gap);
     grid-template-areas:
-        "aside nav nav"
-        "aside main main"
-        "aside main main";
-    grid-template-columns: var(--aside-width) 1fr;
-    grid-template-rows: calc(var(--aside-height) - var(--gap)) 1fr 1fr;
+        "nav nav my-data"
+        "main main my-data"
+        "main main my-data";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
 }
 
 .app.menuOpen {
     grid-template-areas:
-        "nav nav"
-        "main main"
-        "main main";
+        "aside nav nav my-data"
+        "aside main main my-data"
+        "aside main main my-data";
+    grid-template-columns: var(--aside-width) 1fr 1fr;
+    grid-template-rows: calc(var(--aside-height) - var(--gap));
 }
 
-.app.menuOpen aside {
+.app:first-child {
     display: none;
+}
+
+.app.menuOpen:first-child {
+    display: block;
 }
 
 .app > * {

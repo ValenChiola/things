@@ -6,7 +6,7 @@ const AppContext = createContext({} as AppContextValues)
 AppContext.displayName = "AppContext"
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(true)
     const [split, setSplit] = useState<SplitProps["split"]>("vertical")
 
     const toggleMenuOpen = () => setIsMenuOpen((old) => !old)

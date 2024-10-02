@@ -5,7 +5,7 @@ import { useApp } from "../../contexts/AppContext"
 export const ToggleMenu = () => {
     const { isMenuOpen, toggleMenuOpen } = useApp()
 
-    if (isMenuOpen) return <Hamburger onClick={toggleMenuOpen} />
+    if (isMenuOpen) return <Cross onClick={toggleMenuOpen} />
 
-    return <Cross onClick={toggleMenuOpen} />
+    return <Hamburger onClick={toggleMenuOpen} />
 }

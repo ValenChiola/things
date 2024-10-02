@@ -1,0 +1,6 @@
+.myData {
+    grid-area: my-data;
+    height: 100dvh;
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+}

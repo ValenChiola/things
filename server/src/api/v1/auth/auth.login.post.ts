@@ -4,11 +4,12 @@ import { setRefreshTokenCookie } from "../../../domain/services/auth/auth.set.re
 import { userLogin } from "../../../domain/services/auth/auth.login.service"
 
 export default createController(LoginSchema, async ({ body }, reply) => {
-    const { token, sub } = await userLogin(body)
+    const { me, ...rest } = await userLogin(body)
 
-    await setRefreshTokenCookie(sub, reply)
+    await setRefreshTokenCookie(me.id, reply)
 
     return {
-        token,
+        me,
+        ...rest,
     }
 })

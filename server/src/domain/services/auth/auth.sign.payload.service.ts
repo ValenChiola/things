@@ -1,3 +1,5 @@
 import { server } from "../../.."
 
-export const signPayload = server.instance.jwt.sign
+export const signPayload = (
+    ...args: Parameters<typeof server.instance.jwt.sign>
+) => server.instance.jwt.sign(...args)
