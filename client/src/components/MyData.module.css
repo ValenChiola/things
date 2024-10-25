@@ -3,4 +3,7 @@
     height: 100dvh;
     background-color: var(--color-primary);
     border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

@@ -8,7 +8,9 @@ export const Api = Axios.create({
 
 export const setNewToken = (token: string | false) => {
     Api.defaults.headers.Authorization = token ? `Bearer ${token}` : token
-    localStorage.setItem("token", `${token}`)
+
+    if (token) localStorage.setItem("token", `${token}`)
+    else localStorage.removeItem("token")
 }
 
 export type ApiData<T> = {

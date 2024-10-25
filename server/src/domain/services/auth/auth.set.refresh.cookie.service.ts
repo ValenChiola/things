@@ -4,12 +4,19 @@ import { FastifyReply } from "fastify"
 import { log } from "../../../infrastructure/logger"
 import { signPayload } from "./auth.sign.payload.service"
 
-const { JWT_REFRESH_TOKEN_EXP = "10d" } = process.env
-export const refreshExpiration = +(JWT_REFRESH_TOKEN_EXP.match(/\d+/) ?? 0)
+const { JWT_REFRESH_TOKEN_EXP = "3d" } = process.env
+const [_, ...rest] = JWT_REFRESH_TOKEN_EXP.match(/^(\d+)([a-zA-Z]+)$/) || [
+    0,
+    0,
+    "",
+]
+export const refreshTokenData = rest as [number, DayJs.ManipulateType]
 export const refreshTokenCookieName = "refresh_token"
 export const refreshTokenCookieOptions: CookieSerializeOptions = {
     path: "/",
-    expires: DayJs().add(refreshExpiration, "days").toDate(),
+    expires: DayJs()
+        .add(...refreshTokenData)
+        .toDate(),
     httpOnly: true,
     secure: true,
     sameSite: "strict",

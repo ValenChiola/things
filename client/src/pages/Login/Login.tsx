@@ -1,11 +1,14 @@
 import { LoginData, login } from "../../api/auth"
+import { useEffect, useState } from "react"
 
 import Styles from "./Login.module.css"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useToken } from "../../hooks/useToken"
 
 export const Login = () => {
     const navigate = useNavigate()
+    const { token } = useToken()
+
     const [data, setData] = useState<LoginData>({
         email: "",
         password: "",
@@ -20,6 +23,10 @@ export const Login = () => {
         target: { name, value },
     }: React.ChangeEvent<HTMLInputElement>) =>
         setData((prev) => ({ ...prev, [name]: value }))
+
+    useEffect(() => {
+        if (token) navigate("/")
+    }, [token])
 
     return (
         <section className={Styles.container}>

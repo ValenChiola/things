@@ -10,6 +10,9 @@ export const login = (data: LoginData) =>
         }
     )
 
+export const logout = () =>
+    Api.delete("/v1/auth/logout").then(() => setNewToken(false))
+
 export type LoginData = {
     email: string
     password: string

@@ -32,23 +32,17 @@ export const MyNotes = () => {
             </header>
             <div className={Styles.items}>
                 {notes.map((note, index) => (
-                    <NoteItem
-                        key={index}
-                        {...note}
-                    />
+                    <NoteItem key={index} {...note} />
                 ))}
             </div>
         </aside>
     )
 }
 
-const NoteItem = ({
-    id,
-    title,
-}: NoteDTO ) => {
+const NoteItem = ({ id, title }: NoteDTO) => {
     const [isEditing, setIsEditing] = useState(false)
     const { id: noteId } = useParams()
-    const { isUpdating, updateNote , deleteNote} = useNotes()
+    const { isUpdating, updateNote, deleteNote } = useNotes()
     const navigate = useNavigate()
 
     if (isEditing)
@@ -56,7 +50,9 @@ const NoteItem = ({
             <input
                 type="text"
                 value={title}
-                onChange={({ target: { value: title } }) => updateNote({ id, title })}
+                onChange={({ target: { value: title } }) =>
+                    updateNote({ id, title })
+                }
                 onBlur={() => setIsEditing(false)}
             />
         )
@@ -66,7 +62,8 @@ const NoteItem = ({
         navigate("/")
     }
 
-    const className = noteId === id ? Styles.active : isUpdating ? Styles.disabled : ""
+    const className =
+        noteId === id ? Styles.active : isUpdating ? Styles.disabled : ""
 
     return (
         <Link

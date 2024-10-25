@@ -18,15 +18,16 @@ export const Things = () => {
     const { id } = useParams()
 
     useEffect(() => {
-        const token = localStorage.getItem("token") ?? false
-        setNewToken(token)
+        setNewToken(localStorage.getItem("token") ?? false)
     }, [])
 
     if (isPending) return <div>Loading your data...</div>
     if (!me) return <Navigate to="/login" />
 
     return (
-        <div className={`${Styles.app} ${isMenuOpen ? Styles.menuOpen : ""}`}>
+        <div
+            className={`${Styles.things} ${isMenuOpen ? Styles.menuOpen : ""}`}
+        >
             <MyNotes />
             <ToolBar />
             {id ? (
@@ -35,10 +36,12 @@ export const Things = () => {
                     <Preview />
                 </SplitPane>
             ) : (
-                <h1>
-                    Hello {me.displayName}! Click on a note to start editing, or
-                    create a new one.
-                </h1>
+                <main className={Styles.withoutNote}>
+                    <h1>
+                        Hello {me.displayName}! Click on a note to start
+                        editing, or create a new one.
+                    </h1>
+                </main>
             )}
             <MyData />
         </div>

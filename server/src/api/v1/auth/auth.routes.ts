@@ -15,7 +15,11 @@ export const AuthRoutes: Route = {
         server.post("/login", authorize({ minRole: "public" }), AuthLoginPost)
 
         // DELETE
-        server.delete("/", authorize({ minRole: "public" }), AuthLogoutDelete)
+        server.delete(
+            "/logout",
+            authorize({ minRole: "public" }),
+            AuthLogoutDelete
+        )
 
         done()
     },

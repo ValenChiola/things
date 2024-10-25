@@ -19,7 +19,7 @@ export default createController(null, async ({ jwt, cookies }, reply) => {
         if (!cookieToken) return authenticateError
 
         const decoded = jwt.decode<RefreshTokenPayload>(cookieToken)
-        if (!decoded || !decoded.sub) return authenticateError
+        if (!decoded?.sub) return authenticateError
 
         const { sub, exp } = decoded
 

@@ -1,22 +1,28 @@
-import { Navigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
+
 import Styles from "./MyData.module.css"
+import { logout } from "../api/auth"
 import { useMe } from "../hooks/useMe"
 
 export const MyData = () => {
     const { me, isPending } = useMe()
+    const navigate = useNavigate()
 
     if (isPending) return <div>Loading your data...</div>
     if (!me) return <Navigate to="/login" />
 
+    const { displayName, email } = me
+
     return (
         <aside className={Styles.myData}>
-            <h2>My Data</h2>
-            <dl>
-                <dt>Display Name</dt>
-                <dd>{me.displayName}</dd>
-                <dt>Email</dt>
-                <dd>{me.email}</dd>
-            </dl>
+            <header>
+                <h2>My Data</h2>
+                <p>{displayName}</p>
+                <p>{email}</p>
+            </header>
+            <button onClick={() => logout().then(() => navigate("/login"))}>
+                Log out
+            </button>
         </aside>
     )
 }

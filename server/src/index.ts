@@ -13,6 +13,8 @@ Error.stackTraceLimit = Infinity
 
 const envSchema = object({
     JWT_SECRET: string().min(1),
+    JWT_EXPIRES_IN: string().min(1),
+    JWT_REFRESH_TOKEN_EXP: string().min(1),
     DATABASE_URL: string().min(1),
     COOKIE_SECRET: string().min(1),
     NODE_ENV: string().optional(),
