@@ -58,6 +58,7 @@ const NoteItem = ({ id, title }: NoteDTO) => {
         )
 
     const onDelete = () => {
+        if (!confirm("Are you sure you want to delete this note?")) return
         deleteNote(id)
         navigate("/")
     }

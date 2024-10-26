@@ -4,10 +4,12 @@ import { useEffect, useState } from "react"
 import Styles from "./Login.module.css"
 import { useNavigate } from "react-router-dom"
 import { useToken } from "../../hooks/useToken"
+import { useUI } from "../../contexts/UIContext"
 
 export const Login = () => {
-    const navigate = useNavigate()
     const { token } = useToken()
+    const { showError } = useUI()
+    const navigate = useNavigate()
 
     const [data, setData] = useState<LoginData>({
         email: "",
@@ -16,7 +18,11 @@ export const Login = () => {
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        login(data).then(() => navigate("/"))
+        login(data)
+            .then(() => navigate("/"))
+            .catch(({ response: { data } }) =>
+                showError(data?.message ?? "Invalid credentials")
+            )
     }
 
     const onChange = ({

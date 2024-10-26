@@ -8,6 +8,7 @@
         "main main my-data";
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 63px 1fr;
+    height: 100dvh;
 }
 
 .things.menuOpen {
@@ -29,6 +30,7 @@
 
 .things > * {
     padding: var(--padding);
+    height: 100%;
 }
 
 .things .splitPane {
@@ -38,11 +40,16 @@
     background-color: var(--color-primary);
 }
 
-.things main.withoutNote {
+.things .withoutNote {
     grid-area: main;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 20px;
     color: var(--color-secondary);
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+    padding: 0 5em;
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 import { Api, ApiData } from "./api"
 
-export const getMe = () =>
+export const me = () =>
     Api.get<MeGet>("/v1/users/me").then(({ data }) => data.data)
 
 type MeGet = ApiData<{ me: MeDTO }>

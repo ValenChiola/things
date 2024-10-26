@@ -13,7 +13,7 @@
     -moz-osx-font-smoothing: grayscale;
     --padding: 1rem;
     --gap: 7px;
-    --aside-width: 220px;
+    --aside-width: 210px;
     --aside-height: 70px;
     --color-primary: #333;
     --color-editor: #f8f8f8;
@@ -113,4 +113,12 @@ svg {
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+
+/* Helpers */
+.full-center {
+    display: grid;
+    place-items: center;
+    width: 100dvw;
+    height: 100dvh;
 }

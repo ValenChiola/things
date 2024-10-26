@@ -4,16 +4,13 @@ import { MeDTO } from "./users"
 
 export const login = (data: LoginData) =>
     Api.post<LoginResponse>("/v1/auth/login", data).then(
-        ({ data: { data } }) => {
-            setNewToken(data.token)
-            return data
-        }
+        ({ data: { data } }) => data
     )
 
 export const logout = () =>
     Api.delete("/v1/auth/logout").then(() => setNewToken(false))
 
-export type LoginData = {
+export interface LoginData {
     email: string
     password: string
 }

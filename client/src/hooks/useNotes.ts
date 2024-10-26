@@ -99,6 +99,8 @@ export const useNotes = () => {
                 old ? old.filter((note) => note.id !== id) : old
             )
 
+            showToast.success("Note deleted")
+
             return { snapshot }
         },
         onError: (_, __, context) => {

@@ -61,10 +61,10 @@ export const createController: CreateController =
         } catch (error: ErrorWithCode | unknown) {
             if (error instanceof ErrorWithCode) {
                 log.error(pick(error, ["message", "code"]))
-
                 return reply.status(error.code).send({
                     data: null,
-                    ...error,
+                    message: error.message,
+                    code: error.code,
                     success: false,
                 })
             } else {

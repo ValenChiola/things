@@ -1,13 +1,15 @@
-import { getMe as queryFn } from "../api/users"
+import { me as queryFn } from "../api/users"
 import { useQuery } from "@tanstack/react-query"
+import { useToken } from "./useToken"
 
 export const useMe = () => {
-    const token = localStorage.getItem("token")
-    const queryKey = token ? ["Me", token] : [null]
+    const { token, sub } = useToken()
+    const queryKey = token ? ["Me", sub] : [null]
 
     const { data, ...rest } = useQuery({
         queryKey,
         queryFn,
+        enabled: !!token,
     })
 
     return { ...data, ...rest }

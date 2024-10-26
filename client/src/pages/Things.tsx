@@ -7,22 +7,19 @@ import { Preview } from "../components/Preview"
 import { SplitPane } from "../components/SplitPane"
 import Styles from "./Things.module.css"
 import { ToolBar } from "../components/ToolBar/ToolBar"
-import { setNewToken } from "../api/api"
 import { useApp } from "../contexts/AppContext"
-import { useEffect } from "react"
 import { useMe } from "../hooks/useMe"
+import { useToken } from "../hooks/useToken"
 
 export const Things = () => {
-    const { me, isPending } = useMe()
     const { isMenuOpen, split } = useApp()
+    const { me, isPending } = useMe()
+    const { token, isExpired } = useToken()
     const { id } = useParams()
 
-    useEffect(() => {
-        setNewToken(localStorage.getItem("token") ?? false)
-    }, [])
-
-    if (isPending) return <div>Loading your data...</div>
-    if (!me) return <Navigate to="/login" />
+    if (!token || isExpired) return <Navigate to="/login" />
+    if (isPending) return <h2 className="full-center">Loading your data...</h2>
+    if (!me) return null
 
     return (
         <div
@@ -37,10 +34,11 @@ export const Things = () => {
                 </SplitPane>
             ) : (
                 <main className={Styles.withoutNote}>
-                    <h1>
-                        Hello {me.displayName}! Click on a note to start
-                        editing, or create a new one.
-                    </h1>
+                    <h1>Hello {me.displayName}!</h1>
+                    <span>
+                        Click on a note on the left to start editing, or create
+                        a new one.
+                    </span>
                 </main>
             )}
             <MyData />

@@ -6,7 +6,6 @@
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
     font-family: "Arial", sans-serif;
-    font-size: 16px;
     color: white;
     overflow-y: auto;
     scrollbar-width: thin;
@@ -37,7 +36,6 @@
 }
 
 .myNotes h2 {
-    font-size: 20px;
     font-weight: bold;
     color: white;
 }
@@ -72,8 +70,8 @@
 }
 
 .myNotes .items a.disabled {
-    color: #6c757d; /* Color gris para indicar que está deshabilitado */
-    pointer-events: none; /* Evita los clics */
-    opacity: 0.6; /* Reduce la opacidad para dar la apariencia de deshabilitado */
+    color: #6c757d;
+    pointer-events: none;
+    opacity: 0.6;
     cursor: not-allowed;
 }
