@@ -1,3 +1,4 @@
+import { DB } from "../../../infrastructure/database/db"
 import { NotesPatchSchema } from "../../../domain/validations/v1/notes.validations"
 import { createController } from "../../../infrastructure/createController"
 import { findOneNote } from "../../../domain/services/notes/notes.find.one.service"
@@ -15,12 +16,22 @@ export default createController(
     }) => {
         const existingNote = await findOneNote({
             where: { id },
-            select: { authorId: true },
+            select: {
+                scope: true,
+                authorId: true,
+                assistants: true,
+            },
         })
         if (!existingNote) return sendError("Note not found.", 404)
 
-        if (existingNote.authorId !== sub)
-            return sendError("The note does not belong to you.", 401)
+        const { scope, authorId, assistants } = existingNote
+
+        const canUpdate =
+            scope === "public" ||
+            authorId === sub ||
+            assistants.some((item) => item.userId === sub)
+
+        if (!canUpdate) return sendError("Can't update this note", 401)
 
         const note = await updateNote(id, body)
 

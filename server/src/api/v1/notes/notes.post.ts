@@ -11,8 +11,9 @@ export default createController(
         },
     }) => {
         const note = await createNote({
-            ...body,
             authorId,
+            scope: "private",
+            ...body,
         })
 
         return {
