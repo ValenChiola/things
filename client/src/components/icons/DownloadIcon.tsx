@@ -1,6 +1,6 @@
 import { ComponentProps } from "react"
 
-export const Hamburger = (props: ComponentProps<"svg">) => (
+export const DownloadIcon = (props: ComponentProps<"svg">) => (
     <svg
         {...props}
         xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ export const Hamburger = (props: ComponentProps<"svg">) => (
         <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
         />
     </svg>
 )

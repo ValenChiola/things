@@ -1,19 +1,26 @@
 import { ComponentProps } from "react"
 import Markdown from "react-markdown"
 import Styles from "./Preview.module.css"
-import { useNotes } from "../hooks/useNotes"
-import { useParams } from "react-router-dom"
+import { useNote } from "../hooks/useNote"
 
-export const Preview = (props: ComponentProps<typeof Markdown>) => {
-    const { id } = useParams()
-    const { getNoteData } = useNotes()
-    const note = getNoteData(id)
+export const Preview = ({
+    id,
+    ...rest
+}: ComponentProps<typeof Markdown> & { id: string }) => {
+    const { note, isLoading } = useNote(id)
+
+    if (isLoading)
+        return (
+            <section className={Styles.container}>
+                <span>Loading...</span>
+            </section>
+        )
 
     if (!note) return null
 
     return (
         <section className={Styles.container}>
-            <Markdown {...props} className={Styles.preview}>
+            <Markdown {...rest} className={Styles.preview}>
                 {note.content}
             </Markdown>
         </section>

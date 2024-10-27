@@ -1,0 +1,20 @@
+.share {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 400px;
+    min-height: 200px;
+    gap: var(--gap);
+    padding: var(--padding);
+}
+
+.share > * {
+    width: 100%;
+}
+
+.share .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

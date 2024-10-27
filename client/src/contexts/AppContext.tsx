@@ -7,15 +7,19 @@ AppContext.displayName = "AppContext"
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
     const [state, setState] = useState({
-        isMenuOpen: true,
+        isFullScreen: false,
         split: "vertical" as SplitProps["split"],
     })
 
-    const toggleMenuOpen = () =>
+    const toggleFullScreen = () => {
+        if (state.isFullScreen) document.exitFullscreen()
+        else document.querySelector("#root")?.requestFullscreen()
+
         setState((old) => ({
             ...old,
-            isMenuOpen: !old.isMenuOpen,
+            isFullScreen: !old.isFullScreen,
         }))
+    }
 
     const toggleSplit = () =>
         setState((old) => ({
@@ -27,7 +31,7 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
         <AppContext.Provider
             value={{
                 ...state,
-                toggleMenuOpen,
+                toggleFullScreen,
                 toggleSplit,
             }}
         >
@@ -46,8 +50,8 @@ export const useApp = () => {
 }
 
 type AppContextValues = {
-    isMenuOpen: boolean
-    toggleMenuOpen: () => void
+    isFullScreen: boolean
+    toggleFullScreen: () => void
     split: SplitProps["split"]
     toggleSplit: () => void
 }

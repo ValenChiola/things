@@ -1,6 +1,9 @@
 import { literal, object, string, union } from "zod"
 
 const scope = union([literal("public"), literal("private")])
+const ParamsWithId = object({
+    id: string().uuid(),
+})
 
 export const NotesPostSchema = object({
     body: object({
@@ -10,10 +13,15 @@ export const NotesPostSchema = object({
     }),
 })
 
-export const NotesPatchSchema = object({
-    params: object({
-        id: string().uuid(),
+export const NotePostAssistantSchema = object({
+    body: object({
+        email: string().email(),
+        noteId: string().uuid(),
     }),
+})
+
+export const NotesPatchSchema = object({
+    params: ParamsWithId,
     body: object({
         title: string().optional(),
         content: string().optional(),
@@ -22,7 +30,9 @@ export const NotesPatchSchema = object({
 })
 
 export const NotesDeleteSchema = object({
-    params: object({
-        id: string().uuid(),
-    }),
+    params: ParamsWithId,
+})
+
+export const NotesGetOneSchema = object({
+    params: ParamsWithId,
 })

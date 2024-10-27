@@ -3,29 +3,29 @@
     gap: var(--gap);
     padding: var(--gap);
     grid-template-areas:
-        "nav nav my-data"
-        "main main my-data"
-        "main main my-data";
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 63px 1fr;
+        "aside nav my-data"
+        "aside main my-data"
+        "aside main my-data";
+    grid-template-columns: var(--aside-width) 1fr var(--aside-width);
+    grid-template-rows: 70px 1fr;
     height: 100dvh;
 }
 
-.things.menuOpen {
+.things.isFullScreen {
     grid-template-areas:
-        "aside nav nav my-data"
-        "aside main main my-data"
-        "aside main main my-data";
-    grid-template-columns: var(--aside-width) 1fr 1fr;
-    grid-template-rows: calc(var(--aside-height) - var(--gap));
+        "nav"
+        "main"
+        "main";
+    grid-template-columns: 1fr;
+    grid-template-rows: 70px 1fr;
 }
 
-.things aside:first-of-type {
-    display: none;
-}
-
-.things.menuOpen aside:first-of-type {
+.things aside {
     display: block;
+}
+
+.things.isFullScreen aside {
+    display: none;
 }
 
 .things > * {
@@ -38,18 +38,4 @@
     position: unset !important;
     border-radius: var(--border-radius);
     background-color: var(--color-primary);
-}
-
-.things .withoutNote {
-    grid-area: main;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    color: var(--color-secondary);
-    background-color: var(--color-primary);
-    border-radius: var(--border-radius);
-    padding: 0 5em;
-    text-align: center;
 }

@@ -1,15 +1,18 @@
 import { LoginData, login } from "../../api/auth"
 import { useEffect, useState } from "react"
+import { useNavigate, useSearchParams } from "react-router-dom"
 
 import Styles from "./Login.module.css"
-import { useNavigate } from "react-router-dom"
 import { useToken } from "../../hooks/useToken"
 import { useUI } from "../../contexts/UIContext"
 
 export const Login = () => {
     const { token } = useToken()
     const { showError } = useUI()
+    const [params] = useSearchParams()
     const navigate = useNavigate()
+
+    const redirect = params.get("redirect")
 
     const [data, setData] = useState<LoginData>({
         email: "",
@@ -19,7 +22,7 @@ export const Login = () => {
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         login(data)
-            .then(() => navigate("/"))
+            .then(() => (redirect ? navigate(`../${redirect}`) : navigate("/")))
             .catch(({ response: { data } }) =>
                 showError(data?.message ?? "Invalid credentials")
             )
@@ -31,8 +34,10 @@ export const Login = () => {
         setData((prev) => ({ ...prev, [name]: value }))
 
     useEffect(() => {
-        if (token) navigate("/")
-    }, [token])
+        if (!token) return
+        if (redirect) navigate(`../${redirect}`)
+        else navigate("/")
+    }, [redirect, token])
 
     return (
         <section className={Styles.container}>
