@@ -1,14 +1,11 @@
 import { PropsWithChildren, createContext, useContext, useState } from "react"
 
-import { SplitProps } from "../components/SplitPane"
-
 const AppContext = createContext({} as AppContextValues)
 AppContext.displayName = "AppContext"
 
 export const AppProvider = ({ children }: PropsWithChildren) => {
     const [state, setState] = useState({
         isFullScreen: false,
-        split: "vertical" as SplitProps["split"],
     })
 
     const toggleFullScreen = () => {
@@ -21,18 +18,11 @@ export const AppProvider = ({ children }: PropsWithChildren) => {
         }))
     }
 
-    const toggleSplit = () =>
-        setState((old) => ({
-            ...old,
-            split: old.split === "vertical" ? "horizontal" : "vertical",
-        }))
-
     return (
         <AppContext.Provider
             value={{
                 ...state,
                 toggleFullScreen,
-                toggleSplit,
             }}
         >
             {children}
@@ -52,6 +42,4 @@ export const useApp = () => {
 type AppContextValues = {
     isFullScreen: boolean
     toggleFullScreen: () => void
-    split: SplitProps["split"]
-    toggleSplit: () => void
 }

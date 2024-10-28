@@ -1,20 +1,29 @@
+import { useEffect, useState } from "react"
+
 import { jwtDecode } from "jwt-decode"
 import { setNewToken } from "../api/api"
-import { useNavigate } from "react-router-dom"
 
 export const useToken = () => {
-    const navigate = useNavigate()
     let payload = {} as TokenPayload
-    const token = localStorage.getItem("token")
+    const [token, setToken] = useState(() => localStorage.getItem("token"))
 
-    try {
-        if (token) {
-            payload = jwtDecode(token)
-            setNewToken(token)
+    useEffect(() => {
+        try {
+            if (token) {
+                payload = jwtDecode(token)
+                setNewToken(token)
+            }
+        } catch (error) {
+            window.location.href = "/login"
         }
-    } catch (error) {
-        navigate("/login")
-    }
+    }, [token])
+
+    // Listen for changes in localStorage
+    useEffect(() => {
+        const onChange = () => setToken(localStorage.getItem("token"))
+        window.addEventListener("localStorageChange", onChange)
+        return () => window.removeEventListener("localStorageChange", onChange)
+    }, [])
 
     const expiresAt = payload.exp * 1000
     const now = Date.now()

@@ -1,6 +1,7 @@
 import { Navigate, useNavigate } from "react-router-dom"
 
 import Styles from "./MyData.module.css"
+import { VoiceChannel } from "./VoiceChannel/VoiceChannel"
 import { logout } from "../api/auth"
 import { useMe } from "../hooks/useMe"
 
@@ -20,6 +21,7 @@ export const MyData = () => {
                 <p>{displayName}</p>
                 <p>{email}</p>
             </header>
+            <VoiceChannel />
             <button onClick={() => logout().then(() => navigate("/login"))}>
                 Log out
             </button>

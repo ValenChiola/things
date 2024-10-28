@@ -1,6 +1,5 @@
 import { Download } from "./Download"
 import { FullScreen } from "./FullScreen"
-import { Resizer } from "./Resizer"
 import { Share } from "./Share"
 import Styles from "./Header.module.css"
 import { useParams } from "react-router-dom"
@@ -17,7 +16,6 @@ export const Header = () => {
                 <h1 className={Styles.title}>Things</h1>
             </div>
             <div className={Styles.right}>
-                <Resizer />
                 <Download id={id} />
                 <Share id={id} />
             </div>
