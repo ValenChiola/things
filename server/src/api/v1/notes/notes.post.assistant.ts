@@ -11,16 +11,20 @@ export default createController(
         const [note, user] = await Promise.all([
             findOneNote({
                 where: { id: noteId },
+                include: { assistants: true },
             }),
             findOneUser({
                 where: { email },
             }),
         ])
 
-        if (!note) return sendError("Note not found")
-        if (!user) return sendError("User not found")
+        if (!note) return sendError("Note not found", 404)
+        if (!user) return sendError("User not found", 404)
 
         const { id: userId } = user
+
+        const alreadyIn = note.assistants.some((item) => item.userId === userId)
+        if (alreadyIn) return sendError("Already an assistant!", 400)
 
         const assistant = await addAssistant({
             userId,
@@ -28,6 +32,7 @@ export default createController(
         })
 
         return {
+            message: "Assistant added!",
             assistant,
         }
     }

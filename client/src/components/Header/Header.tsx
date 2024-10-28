@@ -3,8 +3,11 @@ import { FullScreen } from "./FullScreen"
 import { Resizer } from "./Resizer"
 import { Share } from "./Share"
 import Styles from "./Header.module.css"
+import { useParams } from "react-router-dom"
 
-export const Header = ({ id }: { id?: string }) => {
+export const Header = () => {
+    const { id } = useParams()
+
     return (
         <nav className={Styles.toolBar}>
             <div className={Styles.left}>

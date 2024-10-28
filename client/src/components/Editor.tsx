@@ -1,3 +1,4 @@
+import { Navigate, useParams } from "react-router-dom"
 import { useEffect, useRef } from "react"
 
 import Styles from "./Editor.module.css"
@@ -5,7 +6,8 @@ import { useMe } from "../hooks/useMe"
 import { useNote } from "../hooks/useNote"
 import { useNotes } from "../hooks/useNotes"
 
-export const Editor = ({ id }: { id?: string }) => {
+export const Editor = () => {
+    const { id } = useParams()
     const { me } = useMe()
     const { note, isLoading } = useNote(id)
     const { updateNote } = useNotes()
@@ -23,10 +25,11 @@ export const Editor = ({ id }: { id?: string }) => {
     }, [note])
 
     if (!me || isLoading) return
+    if (id && !note) return <Navigate to="/not-found" />
 
     return (
         <section className={Styles.editor}>
-            {note ? (
+            {id ? (
                 <textarea
                     ref={ref}
                     id="editor"

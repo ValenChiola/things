@@ -21,10 +21,16 @@ export const updateNote = ({ id, ...rest }: Partial<NoteDTO>) =>
 export const deleteNote = (id: string) => Api.delete(`/v1/notes/${id}`)
 
 export const addAssistant = (data: { email: string; noteId: string }) =>
-    Api.post("/v1/notes/assistant", data)
+    Api.post<ApiData<PostAddAssistant>>("/v1/notes/assistant", data).then(
+        ({ data }) => data
+    )
 
 interface GetUserNotes {
     notes: NoteDTO[]
+}
+
+interface PostAddAssistant {
+    assistant: AssistantDTO
 }
 
 export interface NoteDTO {
@@ -35,11 +41,21 @@ export interface NoteDTO {
     updatedAt: string
     authorId: string
     scope: string
-    assistants: {
-        id: string
-        createdAt: Date
-        updatedAt: Date
-        userId: string
-        noteId: string
-    }[]
+    author: UserNoteDTO
+    assistants: AssistantDTO[]
+}
+
+export interface AssistantDTO {
+    noteId: string
+    id: string
+    userId: string
+    createdAt: Date
+    updatedAt: Date
+    user: UserNoteDTO
+}
+
+interface UserNoteDTO {
+    id: string
+    displayName: string
+    email: string
 }

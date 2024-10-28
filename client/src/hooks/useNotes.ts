@@ -17,6 +17,13 @@ const emptyNote: Omit<NoteDTO, "id"> = {
     authorId: "",
     title: "Untitled",
     content: "",
+    scope: "private",
+    author: {
+        id: "",
+        displayName: "",
+        email: "",
+    },
+    assistants: [],
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
 }

@@ -17,7 +17,24 @@ export default createController(
                 id,
             },
             include: {
-                assistants: true,
+                author: {
+                    select: {
+                        id: true,
+                        displayName: true,
+                        email: true,
+                    },
+                },
+                assistants: {
+                    include: {
+                        user: {
+                            select: {
+                                id: true,
+                                displayName: true,
+                                email: true,
+                            },
+                        },
+                    },
+                },
             },
         })
         if (!note) return sendError("Note not found", 404)

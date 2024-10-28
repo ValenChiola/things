@@ -22,7 +22,9 @@ Api.interceptors.response.use(
 
         if (error.response?.status === 401) {
             setNewToken(false)
-            toast.error("Session expired, please login again")
+            toast.error("Session expired, please login again", {
+                id: "session-expired",
+            })
             setTimeout(() => (window.location.href = "/login"), 2000)
         }
 

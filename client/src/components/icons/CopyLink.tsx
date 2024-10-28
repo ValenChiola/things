@@ -1,8 +1,17 @@
 import { ComponentProps } from "react"
+import { clipboard } from "../../helpers/clipboard"
 
-export const CopyLink = (props: ComponentProps<"svg">) => (
+export const CopyLink = ({
+    link,
+    onClick,
+    ...rest
+}: ComponentProps<"svg"> & { link: string }) => (
     <svg
-        {...props}
+        {...rest}
+        onClick={(event) => {
+            onClick?.(event)
+            clipboard(link)
+        }}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

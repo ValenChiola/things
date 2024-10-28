@@ -2,7 +2,6 @@ import { CopyLink } from "../icons/CopyLink"
 import { Modal } from "../Modal"
 import { ShareIcon } from "../icons/ShareIcon"
 import Styles from "./Share.module.css"
-import { clipboard } from "../../helpers/clipboard"
 import { useAssistants } from "../../hooks/useAssistants"
 import { useNote } from "../../hooks/useNote"
 import { useState } from "react"
@@ -16,8 +15,9 @@ export const Share = ({ id }: { id?: string }) => {
 
     if (!note || !id) return null
 
-    const { title, scope, authorId } = note
-    const belongsToMe = authorId === sub
+    const { title, scope, author } = note
+    const isMyNote = author.id === sub
+    const link = `${location.origin}/login?redirect=/${id}`
 
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -30,8 +30,6 @@ export const Share = ({ id }: { id?: string }) => {
         })
     }
 
-    const link = `${location.origin}/login?redirect=/${id}`
-
     return (
         <>
             <ShareIcon onClick={() => state[1](true)} />
@@ -39,17 +37,24 @@ export const Share = ({ id }: { id?: string }) => {
                 <div className={Styles.share}>
                     <div className={Styles.header}>
                         <h2>Compartir "{title}"</h2>
-                        <CopyLink onClick={() => clipboard(link)} />
+                        <CopyLink link={link} />
                     </div>
 
                     <div className={Styles.withAccess}>
                         <p>People with access: </p>
-                        {assistants.map((item) => (
-                            <div key={item.id}>{item.userId}</div>
-                        ))}
+                        {scope === "public" ? (
+                            <p>Everyone</p>
+                        ) : (
+                            assistants.map(({ id, user }) => (
+                                <div key={id}>
+                                    <p>{user.displayName}</p>
+                                    <small>{user.email}</small>
+                                </div>
+                            ))
+                        )}
                     </div>
 
-                    {belongsToMe && (
+                    {isMyNote ? (
                         <form onSubmit={onSubmit}>
                             <label>
                                 Email:
@@ -58,6 +63,8 @@ export const Share = ({ id }: { id?: string }) => {
 
                             <button>Add</button>
                         </form>
+                    ) : (
+                        <p>This note belongs to {author.displayName}</p>
                     )}
                 </div>
             </Modal>

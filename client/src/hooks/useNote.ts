@@ -7,6 +7,7 @@ export const useNote = (id?: string) => {
         queryFn: () => getNote(id!),
         retry: false,
         enabled: !!id,
+        staleTime: 1000 * 60 * 60,
     })
 
     return {

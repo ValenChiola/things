@@ -79,6 +79,13 @@ button.rounded {
     border-radius: 100px;
 }
 
+button.link {
+    background: none;
+    border: 0;
+    text-decoration: underline;
+    color: white;
+}
+
 /* Inputs */
 input {
     width: 100%;
@@ -116,6 +123,19 @@ svg {
 }
 
 /* Helpers */
+.flex {
+    display: flex;
+}
+
+.flex .center {
+    justify-content: center;
+    align-items: center;
+}
+
+.column {
+    flex-direction: column;
+}
+
 .full-center {
     display: grid;
     place-items: center;
