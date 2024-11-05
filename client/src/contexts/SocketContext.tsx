@@ -39,7 +39,10 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
     /* Manage connection */
     useEffect(() => {
         if (!server) {
-            debug && showToast.error("❗ Socket server not available")
+            debug &&
+                showToast.error("❗ Socket server not available", {
+                    id: "socket-server-not-available",
+                })
             return
         }
 
