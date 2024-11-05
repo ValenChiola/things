@@ -29,10 +29,8 @@ export default createController(
 
         if (
             !isNoteBelongs({
+                noteId: id,
                 userId: sub,
-                authorId,
-                scope,
-                assistants,
             })
         )
             return sendError("Can't update this note", 401)

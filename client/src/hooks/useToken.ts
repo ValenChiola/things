@@ -4,15 +4,14 @@ import { jwtDecode } from "jwt-decode"
 import { setNewToken } from "../api/api"
 
 export const useToken = () => {
-    let payload = {} as TokenPayload
     const [token, setToken] = useState(() => localStorage.getItem("token"))
+    const [payload, setPayload] = useState({} as TokenPayload)
 
     useEffect(() => {
         try {
-            if (token) {
-                payload = jwtDecode(token)
-                setNewToken(token)
-            }
+            if (!token) return
+            setPayload(jwtDecode(token))
+            setNewToken(token)
         } catch (error) {
             window.location.href = "/login"
         }
