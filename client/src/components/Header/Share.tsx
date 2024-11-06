@@ -11,11 +11,12 @@ export const Share = ({ id }: { id?: string }) => {
     const { sub } = useToken()
     const { note } = useNote(id)
     const { assistants, addAssistant } = useAssistants(id)
-    const state = useState(false)
+    const modalState = useState(false)
 
     if (!note || !id) return null
 
     const { title, scope, author } = note
+
     const isMyNote = author.id === sub
     const link = `${location.origin}/login?redirect=/${id}`
 
@@ -32,11 +33,11 @@ export const Share = ({ id }: { id?: string }) => {
 
     return (
         <>
-            <ShareIcon onClick={() => state[1](true)} />
-            <Modal state={state}>
+            <ShareIcon onClick={() => modalState[1](true)} />
+            <Modal state={modalState}>
                 <div className={Styles.share}>
                     <div className={Styles.header}>
-                        <h2>Compartir "{title}"</h2>
+                        <h2>Share "{title}"</h2>
                         <CopyLink link={link} />
                     </div>
 

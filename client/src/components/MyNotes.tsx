@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 
 import { Minus } from "./icons/Minus"
 import { NoteDTO } from "../api/notes"
@@ -41,9 +41,8 @@ export const MyNotes = () => {
 
 const NoteItem = ({ id, title }: NoteDTO) => {
     const [isEditing, setIsEditing] = useState(false)
-    const { id: noteId } = useParams()
     const { isUpdating, updateNote, deleteNote } = useNotes()
-    const navigate = useNavigate()
+    const params = useParams()
 
     if (isEditing)
         return (
@@ -60,11 +59,10 @@ const NoteItem = ({ id, title }: NoteDTO) => {
     const onDelete = () => {
         if (!confirm("Are you sure you want to delete this note?")) return
         deleteNote(id)
-        navigate("/")
     }
 
     const className =
-        noteId === id ? Styles.active : isUpdating ? Styles.disabled : ""
+        params.id === id ? Styles.active : isUpdating ? Styles.disabled : ""
 
     return (
         <Link
