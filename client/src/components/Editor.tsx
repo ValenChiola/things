@@ -39,6 +39,7 @@ export const Editor = () => {
                         fullscreen_native: true,
                         draggable_modal: true,
                         branding: false,
+                        resize: false,
                         mobile: {
                             theme: "mobile",
                         },
@@ -68,6 +69,7 @@ export const Editor = () => {
                             "exportword",
                             "exportpdf",
                         ],
+
                         toolbar:
                             "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | addcomment showcomments | link | align lineheight | checklist numlist bullist indent outdent | removeformat emoticons charmap fullscreen | help",
 
@@ -82,9 +84,11 @@ export const Editor = () => {
                             margin_bottom: "1in",
                             margin_left: "1in",
                         },
+
                         exportword_converter_options: {
                             document: { size: "Letter" },
                         },
+
                         importword_converter_options: {
                             formatting: {
                                 styles: "inline",

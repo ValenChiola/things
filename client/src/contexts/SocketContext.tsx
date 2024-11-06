@@ -46,6 +46,8 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
             return
         }
 
+        if (!token) return
+
         socket.current = io(server, {
             auth: { token },
             query: {
