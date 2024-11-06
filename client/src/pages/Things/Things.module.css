@@ -11,23 +11,6 @@
     height: 100dvh;
 }
 
-.things.isFullScreen {
-    grid-template-areas:
-        "nav"
-        "main"
-        "main";
-    grid-template-columns: 1fr;
-    grid-template-rows: 70px 1fr;
-}
-
-.things aside {
-    display: block;
-}
-
-.things.isFullScreen aside {
-    display: none;
-}
-
 .things > * {
     padding: var(--padding);
     height: 100%;

@@ -2,7 +2,6 @@ import "./index.css"
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-import { AppProvider } from "./contexts/AppContext"
 import { AppRouter } from "./routes/AppRouter"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 import { SocketProvider } from "./contexts/SocketContext"
@@ -36,11 +35,9 @@ createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
             <UIProvider>
-                <AppProvider>
-                    <SocketProvider>
-                        <AppRouter />
-                    </SocketProvider>
-                </AppProvider>
+                <SocketProvider>
+                    <AppRouter />
+                </SocketProvider>
             </UIProvider>
             <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>

@@ -10,6 +10,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { generateRandomString } from "../helpers/random"
 import { useCallback } from "react"
 import { useDebounce } from "./useDebounce"
+import { useNavigate } from "react-router-dom"
 import { useUI } from "../contexts/UIContext"
 
 export const queryKey = ["Notes"]
@@ -29,9 +30,10 @@ const emptyNote: Omit<NoteDTO, "id"> = {
 }
 
 export const useNotes = () => {
+    const { showToast } = useUI()
     const queryClient = useQueryClient()
     const updateNoteDebounce = useDebounce(updateNoteFn)
-    const { showToast } = useUI()
+    const navigate = useNavigate()
 
     const { data: notes = [], ...rest } = useQuery({
         queryKey,
@@ -101,12 +103,11 @@ export const useNotes = () => {
         mutationFn: deleteNoteFn,
         onMutate: (id) => {
             const snapshot = queryClient.getQueryData<NoteDTO[]>(queryKey)
+            const notes = snapshot?.filter((note) => note.id !== id) ?? []
 
-            queryClient.setQueryData<NoteDTO[]>(queryKey, (old) =>
-                old ? old.filter((note) => note.id !== id) : old
-            )
+            queryClient.setQueryData<NoteDTO[]>(queryKey, notes)
 
-            showToast.success("Note deleted")
+            navigate(`/${notes[0]?.id ?? ""}`)
 
             return { snapshot }
         },
@@ -114,7 +115,10 @@ export const useNotes = () => {
             if (!context) return
 
             queryClient.setQueryData(queryKey, context.snapshot)
+
+            showToast.error("Failed to delete note")
         },
+        onSuccess: () => showToast.success("Note deleted"),
     })
 
     const getNoteData = useCallback(

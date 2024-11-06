@@ -41,28 +41,35 @@ export const Login = () => {
 
     return (
         <section className={Styles.container}>
-            <h1>Things</h1>
-            <form onSubmit={onSubmit}>
-                <label>
-                    Email
-                    <input
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        onChange={onChange}
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        onChange={onChange}
-                    />
-                </label>
-                <button className="outlined rounded">Log In</button>
-            </form>
+            <div className="flex center column gap-3">
+                <h1>Things</h1>
+                <form onSubmit={onSubmit}>
+                    <label>
+                        Email
+                        <input
+                            type="email"
+                            name="email"
+                            value={data.email}
+                            onChange={onChange}
+                        />
+                    </label>
+                    <label>
+                        Password
+                        <input
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            onChange={onChange}
+                        />
+                    </label>
+                    <button
+                        className="outlined rounded"
+                        disabled={Object.values(data).some((item) => !item)}
+                    >
+                        Login in
+                    </button>
+                </form>
+            </div>
         </section>
     )
 }

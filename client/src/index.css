@@ -55,11 +55,6 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-button:hover {
-    background-color: #ddd;
-    border-color: #bbb;
-}
-
 button.outlined {
     background-color: #333;
     color: white;
@@ -67,10 +62,9 @@ button.outlined {
     border-radius: 4px;
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
 }
 
-button.outlined:hover {
+button.outlined:hover:not(:disabled) {
     background-color: #555;
     border-color: #777;
 }
@@ -84,6 +78,16 @@ button.link {
     border: 0;
     text-decoration: underline;
     color: white;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #ddd;
+    border-color: #bbb;
 }
 
 /* Inputs */
@@ -127,7 +131,7 @@ svg {
     display: flex;
 }
 
-.flex .center {
+.flex.center {
     justify-content: center;
     align-items: center;
 }
@@ -141,4 +145,16 @@ svg {
     place-items: center;
     width: 100dvw;
     height: 100dvh;
+}
+
+.gap {
+    gap: var(--gap);
+}
+
+.gap-2 {
+    gap: calc(var(--gap) * 2);
+}
+
+.gap-3 {
+    gap: calc(var(--gap) * 3);
 }
