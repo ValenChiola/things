@@ -6,6 +6,7 @@
         "aside nav my-data"
         "aside main my-data"
         "aside main my-data";
+    /* grid-template-columns: var(--aside-width) 0px 1fr; */
     grid-template-columns: var(--aside-width) 1fr var(--aside-width);
     grid-template-rows: 70px 1fr;
     height: 100dvh;

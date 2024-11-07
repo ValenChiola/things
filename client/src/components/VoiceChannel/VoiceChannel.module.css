@@ -1,0 +1,80 @@
+/* VoiceChannel.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1e1e2f; /* Fondo oscuro */
+    color: #ffffff;
+}
+
+.joinButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.joinButton:hover {
+    background-color: #45a049;
+}
+
+.audioConference {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.participantsList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+    margin-top: 20px;
+    background-color: #2a2a3b;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #3a3a4f;
+}
+
+.participant.speaking {
+    background-color: #3a3a4f;
+}
+
+.participant.disabled {
+    opacity: 0.5;
+}
+
+.participantName {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.audioLevel {
+    width: 50%;
+    height: 8px;
+    border-radius: 5px;
+    appearance: none;
+    background-color: #333;
+}
+
+.audioLevel::-webkit-progress-value {
+    background-color: #4caf50;
+}

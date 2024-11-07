@@ -1,15 +1,14 @@
 {
     "compilerOptions": {
-        "esModuleInterop": true,
-        "skipLibCheck": true,
         "target": "es2022",
+        "module": "NodeNext", // Configura `module` a `NodeNext`
+        "moduleResolution": "NodeNext", // Alineado con `module` para ESM
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
         "allowJs": true,
         "resolveJsonModule": true,
-        "moduleDetection": "force",
-        "isolatedModules": true,
         "strict": true,
-        "noUncheckedIndexedAccess": true,
-        "module": "CommonJS",
         "outDir": "dist",
         "sourceMap": true,
         "lib": ["es2022"]

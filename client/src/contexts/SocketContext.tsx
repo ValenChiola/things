@@ -12,6 +12,7 @@ import { useToken } from "../hooks/useToken"
 import { useUI } from "./UIContext"
 
 const server = import.meta.env.VITE_WEBSOCKET_URL
+const disabled = true
 const debug = window.location.hostname === "localhost"
 
 const SocketsContext = createContext({} as ContextTypes)
@@ -38,6 +39,8 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
     }
     /* Manage connection */
     useEffect(() => {
+        if (disabled) return
+
         if (!server) {
             debug &&
                 showToast.error("❗ Socket server not available", {

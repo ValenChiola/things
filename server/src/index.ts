@@ -20,6 +20,8 @@ const envSchema = object({
     NODE_ENV: string().optional(),
     APP_HOST: string().optional(),
     APP_PORT: number().optional(),
+    LIVEKIT_API_KEY: string().min(1),
+    LIVEKIT_API_SECRET: string().min(1),
 })
 
 //@ts-expect-error - Adding the parsed env to the process.env
