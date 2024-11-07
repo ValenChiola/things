@@ -19,6 +19,10 @@ export const VoiceChannel = () => {
     const { id } = useParams()
     const [token, setToken] = useState<string | null>(null)
 
+    useEffect(() => {
+        setToken(null)
+    }, [id])
+
     if (!id) return null
 
     const join = () => getRoomToken(id).then(setToken)
