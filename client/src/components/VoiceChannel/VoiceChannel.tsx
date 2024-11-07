@@ -19,10 +19,6 @@ export const VoiceChannel = () => {
     const { id } = useParams()
     const [token, setToken] = useState<string | null>(null)
 
-    useEffect(() => {
-        setToken(null)
-    }, [id])
-
     if (!id) return null
 
     const join = () => getRoomToken(id).then(setToken)
@@ -71,28 +67,18 @@ const Participants = () => {
         participants.forEach((participant) => {
             participant.on("trackSubscribed", (track) => {
                 if (track.kind === "audio") {
-                    const existingAudioElement = document.getElementById(
-                        participant.identity
-                    )
-                    if (!existingAudioElement) {
-                        const audioElement = document.createElement("audio")
-                        audioElement.id = participant.identity
-                        audioElement.srcObject = track.mediaStream ?? null
-                        audioElement.autoplay = true
-                        audioElement.muted = false
-                        audioElement.play().catch((err) => {
-                            console.error("Error playing audio:", err)
-                        })
-                        document.body.appendChild(audioElement)
-                    }
+                    const audioElement = document.createElement("audio")
+                    audioElement.srcObject = track.mediaStream ?? null
+                    audioElement.play()
+                    audioElement.autoplay = true
                 }
             })
         })
 
         return () => {
-            participants.forEach((participant) =>
+            participants.forEach((participant) => {
                 participant.removeAllListeners("trackSubscribed")
-            )
+            })
         }
     }, [participants])
 
