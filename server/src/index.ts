@@ -20,6 +20,7 @@ const envSchema = object({
     NODE_ENV: string().optional(),
     APP_HOST: string().optional(),
     APP_PORT: number().optional(),
+    WEBSOCKET_URL: string(),
 })
 
 //@ts-expect-error - Adding the parsed env to the process.env

@@ -1,4 +1,5 @@
 import { Navigate, useParams } from "react-router-dom"
+import { useEffect, useRef } from "react"
 
 import Styles from "./Editor.module.css"
 import { Editor as TinyEditor } from "@tinymce/tinymce-react"
@@ -13,12 +14,16 @@ export const Editor = () => {
     const { me } = useMe()
     const { note, isLoading } = useNote(id)
     const { updateNote } = useNotes()
+    const isExternalUpdate = useRef(false) // Prevents infinite loops when updating note via socket
 
-    const onChange = (content: string) =>
-        updateNote({
-            id,
-            content,
-        })
+    const onChange = (content: string) => {
+        if (isExternalUpdate.current) isExternalUpdate.current = false
+        else updateNote({ id, content })
+    }
+
+    useEffect(() => {
+        if (note) isExternalUpdate.current = true
+    }, [note])
 
     if (!me || isLoading) return
     if (id && !note) return <Navigate to="/not-found" />
@@ -44,7 +49,6 @@ export const Editor = () => {
                             theme: "mobile",
                         },
                         plugins: [
-                            "tinycomments",
                             "help",
                             "fullscreen",
                             "anchor",
@@ -71,7 +75,7 @@ export const Editor = () => {
                         ],
 
                         toolbar:
-                            "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | addcomment showcomments | link | align lineheight | checklist numlist bullist indent outdent | removeformat emoticons charmap fullscreen | help",
+                            "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link | align lineheight | checklist numlist bullist indent outdent | removeformat emoticons charmap fullscreen | help",
 
                         tinycomments_author: author?.displayName,
                         tinycomments_author_name: me.displayName,

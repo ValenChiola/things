@@ -1,5 +1,7 @@
 import { QueryFilters, QueryKey, useQueryClient } from "@tanstack/react-query"
 
+import { NoteDTO } from "../api/notes"
+
 export const useActions = () => {
     const queryClient = useQueryClient()
 
@@ -28,6 +30,25 @@ export const useActions = () => {
                         ...data,
                     })
 
+                    break
+                }
+
+                case "note-update": {
+                    const { id, ...rest } = payload
+
+                    queryClient.setQueryData<{ note: NoteDTO }>(
+                        ["Note", id],
+                        (old) =>
+                            old
+                                ? {
+                                      ...old,
+                                      note: {
+                                          ...old.note,
+                                          ...rest,
+                                      },
+                                  }
+                                : old
+                    )
                     break
                 }
 
@@ -67,4 +88,8 @@ type ActionsTypes =
               queryKey: QueryKey
               data: Record<string, unknown>
           }
+      }
+    | {
+          event: "note-update"
+          payload: NoteDTO
       }
