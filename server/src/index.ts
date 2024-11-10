@@ -22,6 +22,7 @@ const envSchema = object({
     APP_PORT: number().optional(),
     LIVEKIT_API_KEY: string().min(1),
     LIVEKIT_API_SECRET: string().min(1),
+    WEBSOCKET_URL: string(),
 })
 
 //@ts-expect-error - Adding the parsed env to the process.env

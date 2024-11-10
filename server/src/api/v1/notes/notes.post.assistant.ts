@@ -4,6 +4,7 @@ import { createController } from "../../../infrastructure/createController"
 import { findOneNote } from "../../../domain/services/notes/notes.find.one.service"
 import { findOneUser } from "../../../domain/services/users/user.find.one.service"
 import { sendError } from "../../../domain/error"
+import { sendEvent } from "../../../infrastructure/socket/socket"
 
 export default createController(
     NotePostAssistantSchema,
@@ -36,6 +37,14 @@ export default createController(
         const assistant = await addAssistant({
             userId,
             noteId,
+        })
+
+        await sendEvent({
+            event: "invalidate-query",
+            payload: {
+                queryKey: ["Notes"],
+            },
+            to: [userId],
         })
 
         return {

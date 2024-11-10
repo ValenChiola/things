@@ -32,7 +32,6 @@ const emptyNote: Omit<NoteDTO, "id"> = {
 export const useNotes = () => {
     const { showToast } = useUI()
     const queryClient = useQueryClient()
-    const updateNoteDebounce = useDebounce(updateNoteFn)
     const navigate = useNavigate()
 
     const { data: notes = [], ...rest } = useQuery({
@@ -70,8 +69,7 @@ export const useNotes = () => {
 
     const { mutate: updateNote, isPending: isUpdating } = useMutation({
         mutationKey: ["Notes", "Update"],
-        mutationFn: async (...args: Parameters<typeof updateNoteDebounce>) =>
-            updateNoteDebounce(...args),
+        mutationFn: updateNoteFn,
         onMutate: (note) => {
             const snapshot = queryClient.getQueryData<NoteDTO[]>(queryKey)
 

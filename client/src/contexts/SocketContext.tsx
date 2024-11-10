@@ -37,7 +37,7 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
             throw new Error("❗ Socket connection not available.")
         return socket.current.volatile.emit(eventName, payload)
     }
-    /* Manage connection */
+
     useEffect(() => {
         if (disabled) return
 
@@ -53,9 +53,6 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
 
         socket.current = io(server, {
             auth: { token },
-            query: {
-                token,
-            },
         })
 
         socket.current.on(
@@ -76,6 +73,7 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
             socket.current?.disconnect()
         }
     }, [token])
+
     return (
         <SocketsContext.Provider
             value={{ socket: socket.current, emit, volatileEmit }}
