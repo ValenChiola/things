@@ -40,7 +40,7 @@ export default createController(
         })
         if (!note) return sendError("Note not found", 404)
 
-        const noteId = note.id
+        const { id: noteId, author, createdAt, updatedAt } = note
 
         if (
             !isNoteBelongs({
@@ -53,6 +53,15 @@ export default createController(
         const token = signPayload({
             sub,
             noteId,
+        })
+
+        note.assistants.push({
+            id: author.id,
+            userId: author.id,
+            user: author,
+            noteId,
+            createdAt,
+            updatedAt,
         })
 
         return {
