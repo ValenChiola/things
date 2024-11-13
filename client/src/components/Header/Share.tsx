@@ -42,30 +42,55 @@ export const Share = ({ id }: { id?: string }) => {
                     </div>
 
                     <div className={Styles.withAccess}>
-                        <p>People with access: </p>
+                        <p className={Styles.sectionTitle}>
+                            People with access:
+                        </p>
                         {scope === "public" ? (
-                            <p>Everyone</p>
+                            <p className={Styles.publicAccess}>Everyone</p>
                         ) : (
                             assistants.map(({ id, user }) => (
-                                <div key={id}>
-                                    <p>{user.displayName}</p>
-                                    <small>{user.email}</small>
+                                <div key={id} className={Styles.userItem}>
+                                    <p className={Styles.userName}>
+                                        {user.displayName}{" "}
+                                        <small>
+                                            (
+                                            {author.id === user.id
+                                                ? "Author"
+                                                : "Assistant"}
+                                            )
+                                        </small>
+                                    </p>
+                                    <small className={Styles.userEmail}>
+                                        {user.email}
+                                    </small>
                                 </div>
                             ))
                         )}
                     </div>
 
                     {isMyNote ? (
-                        <form onSubmit={onSubmit}>
-                            <label>
-                                Email:
-                                <input type="email" name="email" />
-                            </label>
-
-                            <button>Add</button>
+                        <form onSubmit={onSubmit} className={Styles.addForm}>
+                            <div className={Styles.formGroup}>
+                                <label className={Styles.label} htmlFor="email">
+                                    Share by email:
+                                </label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    className={Styles.input}
+                                    placeholder="Enter email"
+                                    required
+                                />
+                            </div>
+                            <button type="submit" className="info">
+                                Share
+                            </button>
                         </form>
                     ) : (
-                        <p>This note belongs to {author.displayName}</p>
+                        <p className={Styles.ownerInfo}>
+                            This note belongs to {author.displayName}
+                        </p>
                     )}
                 </div>
             </Modal>

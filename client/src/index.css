@@ -18,6 +18,7 @@
     --color-primary: #333;
     --color-editor: #f8f8f8;
     --color-preview: #f8f8f8;
+    --color-info: #007bff;
     --color-accent: #b44;
     --border-radius: 10px;
 }
@@ -49,7 +50,7 @@ button {
     height: 2.5rem;
     background-color: #f0f0f0;
     color: #444;
-    border: 1px solid #ccc;
+    border: 0;
     border-radius: 4px;
     padding: 10px 20px;
     font-size: 16px;
@@ -92,6 +93,15 @@ button.icon {
 button.icon svg {
     width: min-content;
     height: min-content;
+}
+
+button.info {
+    background-color: var(--color-info);
+    color: white;
+}
+
+button.info:hover:not(:disabled) {
+    background-color: #0056b3;
 }
 
 button.accent {

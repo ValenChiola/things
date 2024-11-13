@@ -22,6 +22,7 @@ export const Modal = ({
                 color: "black",
                 background: "white",
                 ...style?.content,
+                borderRadius: "var(--border-radius)",
             },
             overlay: {
                 ...style?.overlay,
