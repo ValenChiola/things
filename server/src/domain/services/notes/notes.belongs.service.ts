@@ -1,5 +1,3 @@
-import { Assistant, Note } from "@prisma/client"
-
 import { findOneNote } from "./notes.find.one.service"
 
 export const isNoteBelongs = async ({

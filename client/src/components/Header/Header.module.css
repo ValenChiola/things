@@ -1,4 +1,4 @@
-.toolBar {
+.header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -7,16 +7,16 @@
     border-radius: var(--border-radius);
 }
 
-.toolBar .title {
+.header .title {
     font-size: 35px;
 }
 
-.toolBar .left {
+.header .left {
     display: flex;
     gap: var(--gap);
 }
 
-.toolBar .right {
+.header .right {
     display: flex;
     justify-content: center;
     align-items: center;

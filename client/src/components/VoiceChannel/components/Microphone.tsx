@@ -7,9 +7,8 @@ export const Microphone = () => {
 
     if (!localParticipant) return null
 
-    const toggleMute = () => {
+    const toggleMute = () =>
         localParticipant.setMicrophoneEnabled(!isMicrophoneEnabled)
-    }
 
     return (
         <button

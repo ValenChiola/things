@@ -6,7 +6,7 @@ export const Header = () => {
     const { id } = useParams()
 
     return (
-        <nav className={Styles.toolBar}>
+        <nav className={Styles.header}>
             <div className={Styles.left} />
             <div className={Styles.center}>
                 <h1 className={Styles.title}>Things</h1>

@@ -1,4 +1,3 @@
-import { Navigate, useParams } from "react-router-dom"
 import { useEffect, useRef } from "react"
 
 import Styles from "./Editor.module.css"
@@ -6,6 +5,7 @@ import { Editor as TinyEditor } from "@tinymce/tinymce-react"
 import { useMe } from "../hooks/useMe"
 import { useNote } from "../hooks/useNote"
 import { useNotes } from "../hooks/useNotes"
+import { useParams } from "react-router-dom"
 
 const { VITE_APP_TINY_MCE_API_KEY } = import.meta.env
 
@@ -25,17 +25,16 @@ export const Editor = () => {
         if (note) isExternalUpdate.current = true
     }, [note])
 
-    if (!me || isLoading) return
-    if (id && !note) return <Navigate to="/not-found" />
+    if (!me || isLoading) return null
 
-    const { content, scope, authorId, author } = note ?? {}
+    const { content, scope, author } = note ?? {}
 
     return (
         <section className={Styles.editor}>
             {id ? (
                 <TinyEditor
                     apiKey={VITE_APP_TINY_MCE_API_KEY}
-                    disabled={authorId !== me.id && scope === "public"}
+                    disabled={author?.id !== me.id && scope === "public"}
                     init={{
                         width: "100%",
                         height: "100%",
@@ -45,8 +44,10 @@ export const Editor = () => {
                         draggable_modal: true,
                         branding: false,
                         resize: false,
+                        skin: "oxide-dark",
+                        content_css: "dark",
                         mobile: {
-                            theme: "mobile",
+                            menubar: true,
                         },
                         plugins: [
                             "help",

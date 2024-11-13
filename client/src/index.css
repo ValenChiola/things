@@ -15,9 +15,10 @@
     --gap: 7px;
     --aside-width: 210px;
     --aside-height: 70px;
-    --color-primary: #333;
+    --color-primary: #2a394b;
     --color-editor: #f8f8f8;
     --color-preview: #f8f8f8;
+    --color-success: #28a745;
     --color-info: #007bff;
     --color-accent: #b44;
     --border-radius: 10px;
@@ -58,6 +59,16 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #ddd;
+    border-color: #bbb;
+}
+
 button.outlined {
     background-color: #333;
     color: white;
@@ -76,7 +87,8 @@ button.rounded {
     border-radius: 100px;
 }
 
-button.link {
+button.link,
+button.link:hover {
     background: none;
     border: 0;
     text-decoration: underline;
@@ -93,6 +105,15 @@ button.icon {
 button.icon svg {
     width: min-content;
     height: min-content;
+}
+
+button.success {
+    background-color: var(--color-success);
+    color: white;
+}
+
+button.success:hover:not(:disabled) {
+    background-color: #218838;
 }
 
 button.info {
@@ -112,16 +133,6 @@ button.accent {
 
 button.accent:hover:not(:disabled) {
     background-color: #c65555;
-}
-
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-    background-color: #ddd;
-    border-color: #bbb;
 }
 
 /* Inputs */

@@ -7,3 +7,55 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.displayName {
+    font-size: 16px;
+    font-weight: bold;
+    color: #cccccc;
+    margin: 0;
+}
+
+.email {
+    font-size: 14px;
+    color: #888888;
+    margin: 0;
+}
+
+.logoutButton {
+    padding: 10px 20px;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.logoutButton:hover {
+    background-color: #d9363e;
+}
+
+.voiceChannelButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.voiceChannelButton:hover {
+    background-color: #0056b3;
+}

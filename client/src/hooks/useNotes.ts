@@ -7,9 +7,7 @@ import {
 } from "../api/notes"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-import { generateRandomString } from "../helpers/random"
 import { useCallback } from "react"
-import { useDebounce } from "./useDebounce"
 import { useNavigate } from "react-router-dom"
 import { useUI } from "../contexts/UIContext"
 
@@ -48,7 +46,7 @@ export const useNotes = () => {
             queryClient.setQueryData<NoteDTO[]>(queryKey, (old) =>
                 old
                     ? old.concat({
-                          id: generateRandomString(),
+                          id: "",
                           ...emptyNote,
                       })
                     : old

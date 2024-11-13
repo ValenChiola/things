@@ -22,11 +22,12 @@ export const VoiceChannel = () => {
 
     if (!id) return null
 
-    const join = () => getRoomToken(id).then(setToken)
-
     if (!token)
         return (
-            <button onClick={join} className={Styles.join}>
+            <button
+                onClick={() => getRoomToken(id).then(setToken)}
+                className={`success ${Styles.join}`}
+            >
                 Join Voice Channel
             </button>
         )

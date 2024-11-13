@@ -19,7 +19,7 @@ export const Participants = () => {
                         ({ identity }) => identity === item.userId
                     )
                     if (participant) {
-                        const { audioLevel, isMicrophoneEnabled } = participant
+                        const { audioLevel, isMicrophoneEnabled } = participant //? Why does not work spreading the participant object directly?
                         acc[0].push({
                             ...item.user,
                             audioLevel,

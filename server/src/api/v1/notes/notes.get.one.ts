@@ -55,7 +55,7 @@ export default createController(
             noteId,
         })
 
-        note.assistants.push({
+        note.assistants.unshift({
             id: author.id,
             userId: author.id,
             user: author,
