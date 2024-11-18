@@ -29,8 +29,6 @@ model Note {
   author     User        @relation(fields: [authorId], references: [id])
   authorId   String
   assistants Assistant[]
-
-  @@index([authorId], name: "authorId")
 }
 
 model Assistant {
