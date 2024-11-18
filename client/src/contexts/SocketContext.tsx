@@ -54,12 +54,12 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
 
         socket.current.on(
             "connect",
-            () => debug && showToast.success("Connected to socket server")
+            () => debug && console.info("Connected to socket server")
         )
 
         socket.current.on(
             "disconnect",
-            () => debug && showToast.error("Disconnected from socket server")
+            () => debug && console.error("Disconnected from socket server")
         )
 
         socket.current.onAny((event, payload) =>
