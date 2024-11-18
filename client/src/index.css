@@ -164,6 +164,11 @@ input:disabled {
     cursor: not-allowed;
 }
 
+.tox,
+.tox-tinymce {
+    z-index: 0 !important;
+}
+
 /* SVG */
 svg {
     width: 24px;

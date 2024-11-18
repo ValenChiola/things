@@ -4,8 +4,8 @@ import fastifyCors from "@fastify/cors"
 const corsPlugin = createPlugin(
     async (instance) => {
         instance.register(fastifyCors, {
-            origin: true,
-            credentials: true,
+            origin: "*",
+            credentials: false,
         })
     },
     { name: "cors-plugin" }

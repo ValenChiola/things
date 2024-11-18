@@ -26,13 +26,11 @@ export default createController(
         })
         if (!existingNote) return sendError("Note not found.", 404)
 
-        if (
-            !isNoteBelongs({
-                noteId: id,
-                userId: sub,
-            })
-        )
-            return sendError("Can't update this note", 401)
+        const belongs = await isNoteBelongs({
+            noteId: id,
+            userId: sub,
+        })
+        if (!belongs) return sendError("Can't update this note", 401)
 
         const note = await updateNote(id, body)
 

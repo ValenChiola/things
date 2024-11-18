@@ -36,3 +36,9 @@ export const NotesDeleteSchema = object({
 export const NotesGetOneSchema = object({
     params: ParamsWithId,
 })
+
+export const NotesDeleteAssistantSchema = object({
+    body: object({
+        id: string().uuid(),
+    }),
+})

@@ -41,14 +41,11 @@ export default createController(
         if (!note) return sendError("Note not found", 404)
 
         const { id: noteId, author, createdAt, updatedAt } = note
-
-        if (
-            !isNoteBelongs({
-                noteId,
-                userId: sub,
-            })
-        )
-            return sendError("Note not found", 404)
+        const belongs = await isNoteBelongs({
+            noteId,
+            userId: sub,
+        })
+        if (!belongs) return sendError("Note not found", 404)
 
         const token = signPayload({
             sub,

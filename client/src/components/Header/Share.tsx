@@ -1,3 +1,4 @@
+import { CircleCross } from "../icons/CircleCross"
 import { CopyLink } from "../icons/CopyLink"
 import { Modal } from "../Modal"
 import { ShareIcon } from "../icons/ShareIcon"
@@ -10,7 +11,7 @@ import { useToken } from "../../hooks/useToken"
 export const Share = ({ id }: { id?: string }) => {
     const { sub } = useToken()
     const { note } = useNote(id)
-    const { assistants, addAssistant } = useAssistants(id)
+    const { assistants, addAssistant, deleteAssistant } = useAssistants(id)
     const modalState = useState(false)
 
     if (!note || !id) return null
@@ -50,19 +51,31 @@ export const Share = ({ id }: { id?: string }) => {
                         ) : (
                             assistants.map(({ id, user }) => (
                                 <div key={id} className={Styles.userItem}>
-                                    <p className={Styles.userName}>
-                                        {user.displayName}{" "}
-                                        <small>
-                                            (
-                                            {author.id === user.id
-                                                ? "Author"
-                                                : "Assistant"}
-                                            )
+                                    <div>
+                                        <p className={Styles.userName}>
+                                            {user.displayName}{" "}
+                                            <small>
+                                                (
+                                                {author.id === user.id
+                                                    ? "Author"
+                                                    : "Assistant"}
+                                                )
+                                            </small>
+                                        </p>
+                                        <small className={Styles.userEmail}>
+                                            {user.email}
                                         </small>
-                                    </p>
-                                    <small className={Styles.userEmail}>
-                                        {user.email}
-                                    </small>
+                                    </div>
+                                    {isMyNote && author.id !== user.id && (
+                                        <CircleCross
+                                            onClick={() =>
+                                                deleteAssistant({
+                                                    id,
+                                                })
+                                            }
+                                            className={Styles.removeAssistant}
+                                        />
+                                    )}
                                 </div>
                             ))
                         )}

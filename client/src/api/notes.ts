@@ -25,6 +25,11 @@ export const addAssistant = (data: { email: string; noteId: string }) =>
         ({ data }) => data
     )
 
+export const deleteAssistant = (data: { id: string }) =>
+    Api.delete(`/v1/notes/assistant`, {
+        data,
+    })
+
 interface GetUserNotes {
     notes: NoteDTO[]
 }

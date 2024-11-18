@@ -1,4 +1,5 @@
 import NotesDelete from "./notes.delete"
+import NotesDeleteAssistant from "./notes.delete.assistant"
 import NotesGetOne from "./notes.get.one"
 import NotesPatch from "./notes.patch"
 import NotesPost from "./notes.post"
@@ -26,6 +27,11 @@ export const NoteRoutes: Route = {
 
         // DELETE
         server.delete("/:id", authorize({ minRole: "user" }), NotesDelete)
+        server.delete(
+            "/assistant",
+            authorize({ minRole: "user" }),
+            NotesDeleteAssistant
+        )
 
         done()
     },

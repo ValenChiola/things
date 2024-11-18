@@ -1,8 +1,11 @@
 import { QueryFilters, QueryKey, useQueryClient } from "@tanstack/react-query"
+import { ToastOptions, ToastType } from "react-hot-toast"
 
 import { NoteDTO } from "../api/notes"
+import { useUI } from "../contexts/UIContext"
 
 export const useActions = () => {
+    const { showToast } = useUI()
     const queryClient = useQueryClient()
 
     const actionDispatcher = ({ event, payload }: ActionsTypes) => {
@@ -19,6 +22,12 @@ export const useActions = () => {
                     break
                 }
 
+                case "reset-query": {
+                    queryClient.resetQueries(payload)
+
+                    break
+                }
+
                 case "set-query-data": {
                     const { queryKey, data } = payload
                     const snapshot = queryClient.getQueryData(
@@ -30,6 +39,18 @@ export const useActions = () => {
                         ...data,
                     })
 
+                    break
+                }
+
+                case "show-toast": {
+                    const { type, message, ...options } = payload
+                    // @ts-expect-error
+                    showToast[type](message, options)
+                    break
+                }
+
+                case "go-to": {
+                    window.location.href = payload.goTo
                     break
                 }
 
@@ -83,10 +104,27 @@ type ActionsTypes =
           payload: QueryFilters
       }
     | {
+          event: "reset-query"
+          payload: QueryFilters
+      }
+    | {
           event: "set-query-data"
           payload: {
               queryKey: QueryKey
               data: Record<string, unknown>
+          }
+      }
+    | {
+          event: "show-toast"
+          payload: {
+              type: ToastType
+              message: string
+          } & ToastOptions
+      }
+    | {
+          event: "go-to"
+          payload: {
+              goTo: string
           }
       }
     | {

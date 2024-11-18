@@ -39,13 +39,23 @@ export default createController(
             noteId,
         })
 
-        await sendEvent({
-            event: "invalidate-query",
-            payload: {
-                queryKey: ["Notes"],
-            },
-            to: [userId],
-        })
+        await Promise.all([
+            sendEvent({
+                event: "invalidate-query",
+                payload: {
+                    queryKey: ["Notes"],
+                },
+                to: [userId],
+            }),
+            sendEvent({
+                event: "show-toast",
+                payload: {
+                    type: "success",
+                    message: "You have been added as an assistant!",
+                },
+                to: [userId],
+            }),
+        ])
 
         return {
             message: "Assistant added!",
