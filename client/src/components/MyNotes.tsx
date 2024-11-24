@@ -39,9 +39,10 @@ export const MyNotes = () => {
     )
 }
 
-const NoteItem = ({ id, title }: NoteDTO) => {
+const NoteItem = ({ id, ...props }: NoteDTO) => {
     const [isEditing, setIsEditing] = useState(false)
     const { isUpdating, updateNote, deleteNote } = useNotes()
+    const [title, setTitle] = useState(props.title)
     const params = useParams()
 
     if (isEditing)
@@ -49,10 +50,11 @@ const NoteItem = ({ id, title }: NoteDTO) => {
             <input
                 type="text"
                 value={title}
-                onChange={({ target: { value: title } }) =>
+                onChange={({ target: { value } }) => setTitle(value)}
+                onBlur={() => {
                     updateNote({ id, title })
-                }
-                onBlur={() => setIsEditing(false)}
+                    setIsEditing(false)
+                }}
             />
         )
 

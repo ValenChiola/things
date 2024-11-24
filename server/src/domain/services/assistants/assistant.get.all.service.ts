@@ -1,14 +1,17 @@
 import { DB } from "../../../infrastructure/database/db"
 
-export const addAssistant = (data: { noteId: string; userId: string }) =>
-    DB.assistant.create({
-        data,
+export const getAssistants = async (noteId: string) =>
+    DB.assistant.findMany({
+        where: {
+            noteId,
+        },
         include: {
             user: {
                 select: {
                     id: true,
-                    displayName: true,
                     email: true,
+                    displayName: true,
+                    urlImage: true,
                 },
             },
         },

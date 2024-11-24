@@ -49,6 +49,7 @@ export const Login = () => {
                         <input
                             type="email"
                             name="email"
+                            autoComplete="username"
                             value={data.email}
                             onChange={onChange}
                         />
@@ -58,6 +59,7 @@ export const Login = () => {
                         <input
                             type="password"
                             name="password"
+                            autoComplete="current-password"
                             value={data.password}
                             onChange={onChange}
                         />

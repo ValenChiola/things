@@ -8,7 +8,11 @@ export const Microphone = () => {
     if (!localParticipant) return null
 
     const toggleMute = () =>
-        localParticipant.setMicrophoneEnabled(!isMicrophoneEnabled)
+        localParticipant.setMicrophoneEnabled(!isMicrophoneEnabled, {
+            autoGainControl: true,
+            echoCancellation: true,
+            noiseSuppression: true,
+        })
 
     return (
         <button

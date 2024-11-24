@@ -1,5 +1,5 @@
 import { NotePostAssistantSchema } from "../../../domain/validations/v1/notes.validations"
-import { addAssistant } from "../../../domain/services/notes/notes.add-assistant.service"
+import { createAssistant } from "../../../domain/services/assistants/assistant.create.service"
 import { createController } from "../../../infrastructure/createController"
 import { findOneNote } from "../../../domain/services/notes/notes.find.one.service"
 import { findOneUser } from "../../../domain/services/users/user.find.one.service"
@@ -34,7 +34,7 @@ export default createController(
         const alreadyIn = note.assistants.some((item) => item.userId === userId)
         if (alreadyIn) return sendError("Already an assistant!", 400)
 
-        const assistant = await addAssistant({
+        const assistant = await createAssistant({
             userId,
             noteId,
         })

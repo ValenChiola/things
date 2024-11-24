@@ -1,4 +1,5 @@
 import Styles from "./MyData.module.css"
+import { UserImage } from "./UserImage"
 import { VoiceChannel } from "./VoiceChannel/VoiceChannel"
 import { logout } from "../api/auth"
 import { useMe } from "../hooks/useMe"
@@ -10,13 +11,15 @@ export const MyData = () => {
 
     if (isPending) return <div>Loading your data...</div>
 
-    const { displayName, email } = me ?? {}
+    if (!me) return <div>Something went wrong</div>
 
     return (
         <aside className={Styles.myData}>
             <header className={Styles.header}>
-                <p className={Styles.displayName}>{displayName}</p>
-                <p className={Styles.email}>{email}</p>
+                <div className="flex center gap-2">
+                    <UserImage {...me} />
+                </div>
+                <p className={Styles.email}>{me.email}</p>
             </header>
             <VoiceChannel />
             <button

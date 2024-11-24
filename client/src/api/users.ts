@@ -12,4 +12,5 @@ export type MeDTO = {
     email: string
     displayName: string
     role: string
+    urlImage: string
 } | null

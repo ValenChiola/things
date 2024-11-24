@@ -69,7 +69,11 @@ export const useNotes = () => {
         mutationKey: ["Notes", "Update"],
         mutationFn: updateNoteFn,
         onMutate: (note) => {
-            const snapshot = queryClient.getQueryData<NoteDTO[]>(queryKey)
+            const notesSnapshot = queryClient.getQueryData<NoteDTO[]>(queryKey)
+            const noteSnapshot = queryClient.getQueryData<{ note: NoteDTO }>([
+                "Note",
+                note.id,
+            ])
 
             queryClient.setQueryData<NoteDTO[]>(queryKey, (old) =>
                 old
@@ -85,12 +89,30 @@ export const useNotes = () => {
                     : old
             )
 
-            return { snapshot }
+            queryClient.setQueryData<typeof noteSnapshot>(
+                ["Note", note.id],
+                (old) =>
+                    old
+                        ? {
+                              ...old,
+                              note: {
+                                  ...old.note,
+                                  ...note,
+                              },
+                          }
+                        : old
+            )
+
+            return { notesSnapshot, noteSnapshot, note }
         },
         onError: (_, __, context) => {
             if (!context) return
 
-            queryClient.setQueryData(queryKey, context.snapshot)
+            queryClient.setQueryData(queryKey, context.notesSnapshot)
+            queryClient.setQueryData(
+                ["Note", context.note.id],
+                context.noteSnapshot
+            )
         },
     })
 

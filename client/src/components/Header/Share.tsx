@@ -49,7 +49,7 @@ export const Share = ({ id }: { id?: string }) => {
                         {scope === "public" ? (
                             <p className={Styles.publicAccess}>Everyone</p>
                         ) : (
-                            assistants.map(({ id, user }) => (
+                            assistants?.map(({ id, user }) => (
                                 <div key={id} className={Styles.userItem}>
                                     <div>
                                         <p className={Styles.userName}>

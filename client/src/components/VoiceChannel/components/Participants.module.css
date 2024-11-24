@@ -9,10 +9,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px var(--padding);
+    padding: 15px var(--padding);
     width: 100%;
     border-radius: var(--border-radius);
     background-color: rgba(124, 123, 123, 0.2);
+}
+
+.participant .displayName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 7ch;
+}
+
+.participant img {
+    width: 36px;
+    height: 36px;
+}
+
+.participant img.speaking {
+    outline: 2px solid var(--color-success);
 }
 
 .participant.disabled {

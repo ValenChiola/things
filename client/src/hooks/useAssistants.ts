@@ -2,11 +2,11 @@ import {
     AssistantDTO,
     NoteDTO,
     deleteAssistant as deleteAssistantFn,
+    getNoteAssistants,
     addAssistant as mutationFn,
 } from "../api/notes"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
-import { useNote } from "./useNote"
 import { useParams } from "react-router-dom"
 import { useUI } from "../contexts/UIContext"
 
@@ -25,9 +25,16 @@ const emptyAssistant: AssistantDTO = {
 
 export const useAssistants = (id?: string) => {
     const params = useParams()
-    const { note, ...rest } = useNote(id ?? params.id)
+    id ??= params.id
     const { showToast } = useUI()
     const queryClient = useQueryClient()
+
+    const { data, ...rest } = useQuery({
+        queryKey: ["Note", id, "Assistants"],
+        queryFn: () => getNoteAssistants(id!),
+        enabled: !!id,
+        staleTime: Infinity,
+    })
 
     const { mutate: addAssistant } = useMutation({
         mutationKey: ["Note", id, "Assistant", "Add"],
@@ -86,9 +93,9 @@ export const useAssistants = (id?: string) => {
     })
 
     return {
-        assistants: note?.assistants ?? [],
         addAssistant,
         deleteAssistant,
+        ...data,
         ...rest,
     }
 }

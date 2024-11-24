@@ -4,6 +4,7 @@ import { AssistantDTO } from "../../../api/notes"
 import { MicDisabledIcon } from "../../icons/MicDisabledIcon"
 import { MicIcon } from "../../icons/MicIcon"
 import Styles from "./Participants.module.css"
+import { UserImage } from "../../UserImage"
 import { useAssistants } from "../../../hooks/useAssistants"
 import { useParticipants as useRemoteParticipants } from "@livekit/components-react"
 
@@ -13,7 +14,7 @@ export const Participants = () => {
 
     const [connected, notConnected] = useMemo(
         () =>
-            assistants.reduce(
+            assistants?.reduce(
                 (acc, item) => {
                     const participant = participants.find(
                         ({ identity }) => identity === item.userId
@@ -30,7 +31,7 @@ export const Participants = () => {
                     return acc
                 },
                 [[], []] as [ParticipantItemProps[], ParticipantItemProps[]]
-            ),
+            ) ?? [[], []],
         [assistants, participants]
     )
 
@@ -70,37 +71,45 @@ export const Participants = () => {
 }
 
 const ParticipantItem = ({
-    displayName,
     audioLevel,
     isMicrophoneEnabled,
     className,
+    ...rest
 }: AssistantDTO["user"] &
     Partial<ReturnType<typeof useRemoteParticipants>[number]> & {
         className?: string
-    }) => (
-    <div
-        className={`${Styles.participant} ${
-            audioLevel ? Styles.speaking : ""
-        } ${className ?? ""}`}
-    >
-        <span>{displayName}</span>
-        {isMicrophoneEnabled ? (
-            <MicIcon
-                style={{
-                    width: "min-content",
-                    height: "min-content",
-                }}
-            />
-        ) : (
-            <MicDisabledIcon
-                style={{
-                    width: "min-content",
-                    height: "min-content",
-                    color: "var(--color-accent)",
-                }}
-            />
-        )}
-    </div>
-)
+    }) => {
+    const { displayName } = rest
 
+    return (
+        <div
+            title={displayName}
+            className={`${Styles.participant} ${className ?? ""}`}
+        >
+            <div className="flex center gap">
+                <UserImage
+                    {...rest}
+                    className={`${audioLevel ? Styles.speaking : ""} `}
+                />
+                <small className={Styles.displayName}>{displayName}</small>
+            </div>
+            {isMicrophoneEnabled ? (
+                <MicIcon
+                    style={{
+                        width: "min-content",
+                        height: "min-content",
+                    }}
+                />
+            ) : (
+                <MicDisabledIcon
+                    style={{
+                        width: "min-content",
+                        height: "min-content",
+                        color: "var(--color-accent)",
+                    }}
+                />
+            )}
+        </div>
+    )
+}
 type ParticipantItemProps = Parameters<typeof ParticipantItem>[0]

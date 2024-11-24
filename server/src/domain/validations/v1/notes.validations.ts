@@ -42,3 +42,7 @@ export const NotesDeleteAssistantSchema = object({
         id: string().uuid(),
     }),
 })
+
+export const NotesGetAssistantsSchema = object({
+    params: ParamsWithId,
+})

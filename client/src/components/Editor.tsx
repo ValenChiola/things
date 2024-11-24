@@ -107,7 +107,7 @@ export const Editor = () => {
                 />
             ) : (
                 <>
-                    <h1>Hello {me.displayName}!</h1>
+                    <h1>Hello, {me.displayName}!</h1>
                     <span>
                         Click on a note on the left to start editing, or create
                         a new one.

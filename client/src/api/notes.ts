@@ -20,6 +20,11 @@ export const updateNote = ({ id, ...rest }: Partial<NoteDTO>) =>
 
 export const deleteNote = (id: string) => Api.delete(`/v1/notes/${id}`)
 
+export const getNoteAssistants = (id: string) =>
+    Api.get<ApiData<{ assistants: AssistantDTO[] }>>(
+        `/v1/notes/${id}/assistants`
+    ).then(({ data }) => data.data)
+
 export const addAssistant = (data: { email: string; noteId: string }) =>
     Api.post<ApiData<PostAddAssistant>>("/v1/notes/assistant", data).then(
         ({ data }) => data
@@ -63,4 +68,5 @@ interface UserNoteDTO {
     id: string
     displayName: string
     email: string
+    urlImage: string
 }
