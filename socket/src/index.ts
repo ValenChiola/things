@@ -1,8 +1,7 @@
-import { Server, Socket } from "socket.io"
-
+import { Server } from "socket.io"
 import { createServer } from "http"
-import express from "express"
 import { jwtDecode } from "jwt-decode"
+import express from "express"
 
 export const app = express()
 const server = createServer(app)
@@ -12,19 +11,21 @@ const io = new Server(server, {
     },
 })
 
-const clients = new Map<string, Socket>()
-
 io.on("connection", (socket) => {
     const { token } = socket.handshake.auth
     if (token && typeof token === "string") {
         const { sub, noteId } = jwtDecode<TokenPayload>(token)
-        socket.join([sub, noteId])
 
-        clients.set(socket.id, socket)
-        console.log(`${socket.id} connected to rooms: [${sub}, ${noteId}]`)
+        const rooms = [sub, noteId].filter((item): item is string => !!item)
+
+        socket.join(rooms)
+
+        console.log(`${socket.id} connected to rooms: ${rooms}`)
     }
 
-    socket.on("disconnect", () => clients.delete(socket.id))
+    socket.on("disconnect", () =>
+        console.warn(`${socket.id} disconnected from server`)
+    )
 })
 
 app.post<unknown, unknown, Event>("/send", express.json(), ({ body }, res) => {
@@ -43,7 +44,7 @@ interface Event {
 
 interface TokenPayload {
     sub: string
-    noteId: string
+    noteId?: string
     iat: number
     exp: number
 }
