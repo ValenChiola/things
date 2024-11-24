@@ -16,9 +16,7 @@ export const MyData = () => {
     return (
         <aside className={Styles.myData}>
             <header className={Styles.header}>
-                <div className="flex center gap-2">
-                    <UserImage {...me} />
-                </div>
+                <UserImage {...me} />
                 <p className={Styles.email}>{me.email}</p>
             </header>
             <VoiceChannel />

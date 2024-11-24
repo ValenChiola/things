@@ -3,6 +3,7 @@ import { CopyLink } from "../icons/CopyLink"
 import { Modal } from "../Modal"
 import { ShareIcon } from "../icons/ShareIcon"
 import Styles from "./Share.module.css"
+import { UserImage } from "../UserImage"
 import { useAssistants } from "../../hooks/useAssistants"
 import { useNote } from "../../hooks/useNote"
 import { useState } from "react"
@@ -51,20 +52,16 @@ export const Share = ({ id }: { id?: string }) => {
                         ) : (
                             assistants?.map(({ id, user }) => (
                                 <div key={id} className={Styles.userItem}>
-                                    <div>
-                                        <p className={Styles.userName}>
-                                            {user.displayName}{" "}
-                                            <small>
-                                                (
-                                                {author.id === user.id
-                                                    ? "Author"
-                                                    : "Assistant"}
-                                                )
+                                    <div className="flex gap">
+                                        <UserImage {...user} />
+                                        <div className="flex center-start column">
+                                            <p className={Styles.userName}>
+                                                {user.displayName}
+                                            </p>
+                                            <small className={Styles.userEmail}>
+                                                {user.email}
                                             </small>
-                                        </p>
-                                        <small className={Styles.userEmail}>
-                                            {user.email}
-                                        </small>
+                                        </div>
                                     </div>
                                     {isMyNote && author.id !== user.id && (
                                         <CircleCross

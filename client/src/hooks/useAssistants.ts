@@ -20,6 +20,7 @@ const emptyAssistant: AssistantDTO = {
         id: "",
         displayName: "",
         email: "",
+        urlImage: "",
     },
 }
 

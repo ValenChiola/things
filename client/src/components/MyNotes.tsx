@@ -1,11 +1,11 @@
 import { Link, useParams } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 import { Minus } from "./icons/Minus"
 import { NoteDTO } from "../api/notes"
 import { Plus } from "./icons/Plus"
 import Styles from "./MyNotes.module.css"
 import { useNotes } from "../hooks/useNotes"
-import { useState } from "react"
 
 export const MyNotes = () => {
     const { notes, status, startNote } = useNotes()
@@ -44,6 +44,10 @@ const NoteItem = ({ id, ...props }: NoteDTO) => {
     const { isUpdating, updateNote, deleteNote } = useNotes()
     const [title, setTitle] = useState(props.title)
     const params = useParams()
+
+    useEffect(() => {
+        setTitle(props.title)
+    }, [props.title])
 
     if (isEditing)
         return (

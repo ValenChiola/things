@@ -43,10 +43,14 @@ export const VoiceChannel = () => {
             className={Styles.voiceChannel}
         >
             <Participants />
-            <div className="flex center gap">
-                <Microphone />
-                <Leave />
-            </div>
+            <Controls />
         </LiveKitRoom>
     )
 }
+
+const Controls = () => (
+    <div className="flex center gap">
+        <Microphone />
+        <Leave />
+    </div>
+)

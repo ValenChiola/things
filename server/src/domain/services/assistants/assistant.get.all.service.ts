@@ -15,4 +15,7 @@ export const getAssistants = async (noteId: string) =>
                 },
             },
         },
+        orderBy: {
+            createdAt: "asc",
+        },
     })
