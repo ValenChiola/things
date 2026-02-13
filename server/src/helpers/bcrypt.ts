@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcryptjs"
 
 export const hash = (str: string, salt = 10) => bcrypt.hash(str, salt)
 export const compare = bcrypt.compare

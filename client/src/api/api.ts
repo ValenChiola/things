@@ -10,7 +10,7 @@ export const Api = Axios.create({
 
 Api.interceptors.response.use(
     <T extends Record<string, unknown> & { token?: string }>(
-        response: AxiosResponse<ApiData<T>>
+        response: AxiosResponse<ApiData<T>>,
     ) => {
         const { data } = response.data
         if (data.token) setNewToken(data.token)
@@ -18,6 +18,7 @@ Api.interceptors.response.use(
     },
     (error: AxiosError) => {
         const url = Api.getUri(error.config)
+
         if (url.includes("/login")) return Promise.reject(error)
 
         if (error.response?.status === 401) {
@@ -29,7 +30,7 @@ Api.interceptors.response.use(
         }
 
         return Promise.reject(error)
-    }
+    },
 )
 
 export const setNewToken = (token: string | false) => {

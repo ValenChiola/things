@@ -24,7 +24,7 @@ export const Login = () => {
         login(data)
             .then(() => (redirect ? navigate(`../${redirect}`) : navigate("/")))
             .catch(({ response: { data } }) =>
-                showError(data?.message ?? "Invalid credentials")
+                showError(data?.message ?? "Invalid credentials"),
             )
     }
 

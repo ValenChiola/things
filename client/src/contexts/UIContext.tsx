@@ -17,7 +17,13 @@ export const UIProvider = ({ children }: PropsWithChildren) => {
                 showError,
             }}
         >
-            <Toaster />
+            <Toaster
+                toastOptions={{
+                    style: {
+                        maxWidth: "max-content",
+                    },
+                }}
+            />
             {children}
         </UIContext.Provider>
     )

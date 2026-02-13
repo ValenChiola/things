@@ -21,8 +21,8 @@ export const createController: CreateController =
                         .map(
                             ({ message, path }) =>
                                 `${capitalize(`${path.at(-1)}`)}: ${capitalize(
-                                    message
-                                )}`
+                                    message,
+                                )}`,
                         )
                         .join("; ")
 
@@ -45,7 +45,7 @@ export const createController: CreateController =
 
             const result = await callback(
                 { ...request, ...validatedRequest },
-                reply
+                reply,
             )
 
             const { message = "Success", code = 200, ...data } = result ?? {}
@@ -73,7 +73,7 @@ export const createController: CreateController =
 
                 return reply.status(500).send({
                     data: null,
-                    message: "Internal Server Error",
+                    message: "Something went wrong, please try again later.",
                     code: 500,
                     success: false,
                 })
@@ -85,9 +85,9 @@ type CreateController = <T extends Request>(
     schema: Schema<T> | null,
     callback: (
         request: RequestCallback<T>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ) => ResponseCallback,
-    options?: { stream?: boolean }
+    options?: { stream?: boolean },
 ) => (request: RequestCallback<T>, reply: FastifyReply) => void
 
 interface Request<Body = unknown, Params = unknown, Query = unknown> {
@@ -107,5 +107,5 @@ type ResponseCallback<
         message?: string
         code?: number
         success?: boolean
-    }
+    },
 > = Promise<T> | T

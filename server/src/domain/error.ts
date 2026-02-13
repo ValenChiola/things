@@ -2,7 +2,7 @@ export class ErrorWithCode extends Error {
     code: number
 
     constructor(message: unknown, code = 500) {
-        super(`${message}`.toString())
+        super(`${message}`)
         this.code = code
     }
 }

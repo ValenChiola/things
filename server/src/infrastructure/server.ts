@@ -35,11 +35,11 @@ class Server {
         this.instance.log.info(`✔ Initializing: Routes (${routes.length + 2})`)
 
         routes.forEach(({ routes, prefix }) =>
-            this.instance.register(routes, { prefix: `/api/${prefix}` })
+            this.instance.register(routes, { prefix: `/api/${prefix}` }),
         )
 
         this.instance.get("/health-check", (_, reply) =>
-            reply.send({ "Is server alive?": true })
+            reply.send({ "Is server alive?": true }),
         )
 
         this.instance.get("/", (_, reply) => reply.send("Hello there!"))
@@ -56,13 +56,13 @@ class Server {
             if (NODE_ENV == "test") return
 
             this.instance.log.info(
-                `✔ Initializing: Server on port ${this.port}`
+                `✔ Initializing: Server on port ${this.port}`,
             )
             this.instance.listen(
                 { port: this.port, host: this.host },
                 (error) => {
                     if (error) throw error
-                }
+                },
             )
         } catch (error) {
             this.instance.log.error(error)
